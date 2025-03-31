@@ -215,47 +215,54 @@ body{
 .container.active .toggle-right{
     transform: translateX(200%);
 }
+.error-message {
+            color: red;
+            font-size: 12px;
+            display: block;
+            margin-top: 5px;
+}
    </style>
-    <title>Modern Login Page</title>
+    
 </head>
 
 <body>
     <div class="container" id="container">
         <div class="form-container sign-up">
-            <form action="signup.php" method="post" enctype="multipart/form-data">
+            <form action="signup.php" method="post" enctype="multipart/form-data" onsubmit="return validateSignUp()">
                 <h1>Create Account</h1>
                 <div class="social-icons">
-                    <a href="https://myaccount.google.com/?utm_source=OGB&utm_medium=app" class="icon"><i class="fa-brands fa-google-plus-g"></i></a>
+                    <a href="https://myaccount.google.com/" class="icon"><i class="fa-brands fa-google-plus-g"></i></a>
                     <a href="https://www.facebook.com/" class="icon"><i class="fa-brands fa-facebook-f"></i></a>
-                    
-                
                 </div>
                 <span>or use your email for registration</span>
-                <input type="text" name="name" placeholder="Name">
-                <input type="email" name="email" placeholder="Email">
-                <input type="password" name="password" placeholder="Password">
-                <input type="text" name="address" placeholder="Address">
-                <input type="file" name="avatar" >
-
+                <input type="text" id="signup-name" name="name" placeholder="Name">
+                <span class="error-message" id="name-error"></span>
+                <input type="email" id="signup-email" name="email" placeholder="Email">
+                <span class="error-message" id="email-error"></span>
+                <input type="password" id="signup-password" name="password" placeholder="Password">
+                <span class="error-message" id="password-error"></span>
+                <input type="text" id="signup-address" name="address" placeholder="Address">
+                <span class="error-message" id="address-error"></span>
+                <input type="file" id="signup-avatar" name="avatar">
+                <span class="error-message" id="avatar-error"></span>
                 <button type="submit">Sign Up</button>
             </form>
-            
         </div>
         <div class="form-container sign-in">
-            <form action="signin.php" method="post">
+            <form action="signin.php" method="post" onsubmit="return validateSignIn()">
                 <h1>Sign In</h1>
                 <div class="social-icons">
-                    <a href="https://myaccount.google.com/?utm_source=OGB&utm_medium=app" class="icon"><i class="fa-brands fa-google-plus-g"></i></a>
+                    <a href="https://myaccount.google.com/" class="icon"><i class="fa-brands fa-google-plus-g"></i></a>
                     <a href="https://www.facebook.com/" class="icon"><i class="fa-brands fa-facebook-f"></i></a>
-                
                 </div>
                 <span>or use your email and password</span>
-                <input type="email" name="email" placeholder="Email">
-                <input type="password" name="password" placeholder="Password">
+                <input type="email" id="signin-email" name="email" placeholder="Email">
+                <span class="error-message" id="signin-email-error"></span>
+                <input type="password" id="signin-password" name="password" placeholder="Password">
+                <span class="error-message" id="signin-password-error"></span>
                 <a href="#">Forget Your Password?</a>
                 <button type="submit">Sign In</button>
             </form>
-            
         </div>
         <div class="toggle-container">
             <div class="toggle">
@@ -275,17 +282,53 @@ body{
 
     <script>
         const container = document.getElementById('container');
-const registerBtn = document.getElementById('register');
-const loginBtn = document.getElementById('login');
+        const registerBtn = document.getElementById('register');
+        const loginBtn = document.getElementById('login');
 
-registerBtn.addEventListener('click', () => {
-    container.classList.add("active");
-});
+        registerBtn.addEventListener('click', () => {
+            container.classList.add("active");
+        });
 
-loginBtn.addEventListener('click', () => {
-    container.classList.remove("active");
-});
+        loginBtn.addEventListener('click', () => {
+            container.classList.remove("active");
+        });
+
+        function validateSignUp() {
+            let isValid = true;
+            document.getElementById("name-error").textContent = "";
+            document.getElementById("email-error").textContent = "";
+            document.getElementById("password-error").textContent = "";
+            document.getElementById("address-error").textContent = "";
+            document.getElementById("avatar-error").textContent = "";
+            
+            const name = document.getElementById('signup-name').value.trim();
+            const email = document.getElementById('signup-email').value.trim();
+            const password = document.getElementById('signup-password').value.trim();
+            const address = document.getElementById('signup-address').value.trim();
+            const avatar = document.getElementById('signup-avatar').value;
+
+            if (name === '') { document.getElementById("name-error").textContent = "Name is required."; isValid = false; }
+            if (email === '' || !email.includes('@')) { document.getElementById("email-error").textContent = "Valid email is required."; isValid = false; }
+            if (password === '' || password.length < 6) { document.getElementById("password-error").textContent = "Password must be at least 6 characters long."; isValid = false; }
+            if (address === '') { document.getElementById("address-error").textContent = "Address is required."; isValid = false; }
+            if (avatar === '') { document.getElementById("avatar-error").textContent = "Please upload an avatar."; isValid = false; }
+
+            return isValid;
+        }
+
+        function validateSignIn() {
+            let isValid = true;
+            document.getElementById("signin-email-error").textContent = "";
+            document.getElementById("signin-password-error").textContent = "";
+            
+            const email = document.getElementById('signin-email').value.trim();
+            const password = document.getElementById('signin-password').value.trim();
+
+            if (email === '' || !email.includes('@')) { document.getElementById("signin-email-error").textContent = "Valid email is required."; isValid = false; }
+            if (password === '') { document.getElementById("signin-password-error").textContent = "Password is required."; isValid = false; }
+
+            return isValid;
+        }
     </script>
 </body>
-
 </html>
