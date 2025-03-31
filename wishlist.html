@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Wishlist</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f4;
+      padding: 20px;
+    }
+
+    h1 {
+      text-align: center;
+      margin-bottom: 20px;
+      color: #333;
+    }
+
+    .wishlist-items {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 20px;
+      margin-top: 20px;
+    }
+
+    .wishlist-item {
+      background-color: white;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      transition: transform 0.3s ease;
+    }
+
+    .wishlist-item:hover {
+      transform: translateY(-10px);
+    }
+
+    .wishlist-image {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+    }
+
+    .wishlist-details {
+      padding: 15px;
+      flex-grow: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .wishlist-title {
+      font-size: 20px;
+      margin-bottom: 10px;
+      color: #333;
+    }
+
+    .wishlist-price {
+      font-size: 18px;
+      color: #4CAF50;
+      margin-bottom: 10px;
+    }
+
+    button {
+      padding: 8px 12px;
+      background-color: #f44336;
+      color: white;
+      border: none;
+      cursor: pointer;
+      font-size: 14px;
+      border-radius: 4px;
+    }
+
+    button:hover {
+      background-color: #d32f2f;
+    }
+
+    @media (max-width: 1024px) {
+      .wishlist-items {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+
+    @media (max-width: 768px) {
+      .wishlist-items {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (max-width: 480px) {
+      .wishlist-items {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .empty-message {
+      text-align: center;
+      font-size: 18px;
+      color: #666;
+    }
+  </style>
+</head>
+<body>
+  <h1>My Wishlist</h1>
+  <section class="wishlist-items" id="wishlistItems">
+    <!-- Wishlist items will be dynamically inserted here -->
+  </section>
+
+  <script>
+    // Retrieve wishlist from localStorage
+    const wishlist = JSON.parse(localStorage.getItem('wishlist')) || [];
+    const wishlistItemsContainer = document.getElementById('wishlistItems');
+
+    // Display message if wishlist is empty
+    if (wishlist.length === 0) {
+      wishlistItemsContainer.innerHTML = '<p class="empty-message">Your wishlist is empty.</p>';
+    } else {
+      // Render each wishlist item
+      wishlist.forEach(item => {
+        const itemDiv = document.createElement('div');
+        itemDiv.classList.add('wishlist-item');
+
+        itemDiv.innerHTML = `
+          <img src="${item.image}" alt="${item.name}" class="wishlist-image">
+          <div class="wishlist-details">
+            <h2 class="wishlist-title">${item.name}</h2>
+            <p class="wishlist-price">${item.price}</p>
+            <button onclick="removeFromWishlist('${item.name}')">Remove</button>
+          </div>
+        `;
+
+        wishlistItemsContainer.appendChild(itemDiv);
+      });
+    }
+
+    // Function to remove item from wishlist
+    function removeFromWishlist(name) {
+      const updatedWishlist = wishlist.filter(item => item.name !== name);
+      localStorage.setItem('wishlist', JSON.stringify(updatedWishlist));
+      location.reload(); // Reload the page to reflect changes
+    }
+  </script>
+</body>
+</html>

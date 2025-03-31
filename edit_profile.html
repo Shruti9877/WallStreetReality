@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Profile</title>
+    <style>
+        .edit-profile-form {
+            max-width: 400px;
+            margin: auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .edit-profile-form input, .edit-profile-form button {
+            width: 100%;
+            margin: 10px 0;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        .edit-profile-form button {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        .edit-profile-form button:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+    <h1 align="center">Wall Street Reality</h1>
+    <div class="edit-profile-form">
+        <form action="p]" method="POST">
+            <h2>Edit Profile</h2>
+            <input type="text" id="name" name="name" placeholder="Enter your name" value="<?php echo htmlspecialchars($name); ?>" required>
+            <input type="text"id="bio" name="bio" placeholder="Enter your bio" value="<?php echo htmlspecialchars($bio); ?>" required>
+            <input type="text" id="avatar" name="avatar" placeholder="Enter avatar image URL" value="<?php echo htmlspecialchars($avatar); ?>" required>
+            <button type="submit">Save Changes</button>
+        </form>
+    </div>
+</body>
+</html>
+<script>
+
+</script>

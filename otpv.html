@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home Booking Form</title>
+    <style>
+        /* styles.css */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f0f0f0;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.form-container, .otp-container {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    width: 300px;
+}
+
+h2, h3 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+input[type="text"], input[type="email"] {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+button {
+    width: 100%;
+    padding: 10px;
+    background-color: #28a745;
+    border: none;
+    color: white;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #218838;
+}
+
+#otp-message, #otp-error {
+    color: red;
+    text-align: center;
+}
+
+    </style>
+</head>
+<body>
+    <div class="form-container">
+        <h2>Home Booking Form</h2>
+        <form id="booking-form" action="otp.php" method="POST">
+            <div class="form-group">
+                <label for="customer_name">Name:</label>
+                <input type="text" id="customer_name" name="customer_name" required>
+            </div>
+            <div class="form-group">
+                <label for="customer_email">Email:</label>
+                <input type="email" id="customer_email" name="customer_email" required>
+            </div>
+            <div class="form-group">
+                <label for="home-details">Home Details:</label>
+                <input type="text" id="home-details" name="home-details" required>
+            </div>
+            <div class="form-group">
+                <label for="home-id">Home ID:</label>
+                <input type="text" id="home-id" name="home-id" required>
+            </div>
+            <div class="form-group">
+                <label for="property_id">Property ID:</label>
+                <input type="text" id="property_id" name="property_id" required>
+            </div>
+            <button type="submit" id="send-otp">Send OTP</button>
+        </form>
+        <p id="otp-message"></p>
+    </div>
+
+    <div class="otp-container" id="otp-section" style="display: none;">
+        <h3>Enter OTP</h3>
+        <form id="otp-form" action="verify-otp.php" method="POST">
+            <div class="form-group">
+                <label for="otp">OTP:</label>
+                <input type="text" id="otp" name="otp" required>
+            </div>
+            <button type="submit">Verify OTP</button>
+        </form>
+        <p id="otp-error"></p>
+    </div>
+
+    <script>
+        // script.js
+document.getElementById('booking-form').addEventListener('submit', function (e) {
+    e.preventDefault();  // Prevent the form from submitting normally
+
+    const formData = new FormData(this);
+
+    // Send the booking data to the server to trigger OTP sending
+    fetch('otp.php', {
+        method: 'POST',
+        body: formData
+    })
+    .then(response => response.text())
+    .then(data => {
+        // Assuming the server returns success message
+        document.getElementById('otp-message').textContent = 'OTP has been sent to your email!';
+        document.getElementById('otp-section').style.display = 'block'; // Show the OTP section
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        document.getElementById('otp-message').textContent = 'Error sending OTP.';
+    });
+});
+
+document.getElementById('otp-form').addEventListener('submit', function (e) {
+    e.preventDefault();
+
+    const formData = new FormData(this);
+
+    // Send the OTP to the server for verification
+    fetch('verify-otp.php', {
+        method: 'POST',
+        body: formData
+    })
+    .then(response => response.text())
+    .then(data => {
+        if (data === 'OTP is correct!') {
+            alert('OTP verified successfully!');
+            // Redirect to the confirmation page or take further action
+        } else {
+            document.getElementById('otp-error').textContent = 'Invalid OTP. Please try again.';
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        document.getElementById('otp-error').textContent = 'Error verifying OTP.';
+    });
+});
+
+    </script>
+</body>
+</html>

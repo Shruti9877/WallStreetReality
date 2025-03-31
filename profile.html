@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Profile</title>
+    <style>
+       /* General Styles */
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background: linear-gradient(135deg, #f3f4f6, #d1d5db);
+    font-family: 'Poppins', sans-serif;
+    margin: 0;
+}
+
+/* Navbar */
+.navbar {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 95%;
+    width: 200px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    border-radius: 15px;
+    padding: 20px;
+    box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s ease-in-out;
+}
+
+.nav-links {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.navbar a {
+    text-decoration: none;
+    color: #333;
+    font-weight: 500;
+    font-size: 18px;
+    transition: all 0.3s ease-in-out;
+    padding: 10px;
+    border-radius: 10px;
+}
+
+.navbar a:hover {
+    background: rgba(0, 0, 0, 0.1);
+    color: #007bff;
+    transform: scale(1.05);
+}
+
+.logout {
+    margin-top: auto;
+    font-size: 18px;
+    color: #ff4d4d;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+}
+
+.logout:hover {
+    color: #ff1a1a;
+    transform: scale(1.1);
+}
+
+/* Profile Card */
+.profile-card {
+    background: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(15px);
+    padding: 30px;
+    width: 420px;
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+    text-align: center;
+    position: relative;
+    transition: all 0.3s ease-in-out;
+}
+
+.profile-card:hover {
+    transform: translateY(-5px);
+}
+
+.profile-img {
+    width: 110px;
+    height: 110px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 5px solid #007bff;
+    transition: all 0.3s ease-in-out;
+}
+
+.profile-img:hover {
+    transform: scale(1.1);
+}
+
+.edit-btn {
+    margin-top: 20px;
+    background: linear-gradient(135deg, #007bff, #0056b3);
+    color: #fff;
+    padding: 12px 18px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: 600;
+    transition: all 0.3s ease-in-out;
+}
+
+.edit-btn:hover {
+    background: linear-gradient(135deg, #0056b3, #003d80);
+    transform: scale(1.05);
+}
+
+    </style>
+</head>
+<body>
+
+    <div class="navbar">
+        <div class="nav-links">
+            <a href="home.php">Home</a>
+            <a href="propertis.html">Property</a>
+        </div>
+        <a href="logout.php" class="logout">Logout</a>
+    </div>
+
+    <div class="profile-card">
+        <img id="avatar" alt="Avatar" class="profile-img">
+        <h2 id="name">Loading...</h2>
+        <p>Email: <span id="email"></span></p>
+        <p>Phone: <span id="phone"></span></p>
+        <p>Address: <span id="address"></span></p>
+        <button class="edit-btn" onclick="editProfile()">Edit Profile</button>
+    </div>
+
+    <script>
+        fetch('profile.php')
+            .then(response => response.json())
+            .then(data => {
+                if (data.error) {
+                    document.body.innerHTML = `<p>${data.error}</p>`;
+                } else {
+                    document.getElementById('avatar').src = data.avatar ? data.avatar : 'uploads/bg5.jpg';
+                    document.getElementById('name').textContent = data.name;
+                    document.getElementById('email').textContent = data.email;
+                    document.getElementById('phone').textContent = data.phone || 'Not provided';
+                    document.getElementById('address').textContent = data.address;
+                }
+            })
+            .catch(error => console.error('Error loading profile:', error));
+
+        function editProfile() {
+            window.location.href = 'edit_profile.php';
+        }
+    </script>
+
+</body>
+</html>

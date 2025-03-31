@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Purchase Confirmation</title>
+  <style>
+    /* ✅ Global Styling */
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #faf9f6;
+      margin: 0;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    /* ✅ Modal Container */
+    .modal {
+      background-color: #ffffff;
+      width: 400px;
+      border-radius: 16px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+      overflow: hidden;
+      animation: fadeIn 0.4s ease;
+      position: relative;
+    }
+
+    /* ✅ Modal Header */
+    .modal-header {
+      padding: 40px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: relative;
+      background-color: #f9f5f1;
+      color: #1f1f1f; /* Dark font */
+    }
+
+    /* ✅ Background Image + Overlay */
+    .modal-header::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 120px;
+      background-image: url('/photos/thank.jpg'); /* Use project path */
+      background-size: cover;
+      background-position: center;
+      opacity: 0.3; /* Subtle overlay */
+      z-index: 0;
+    }
+
+    /* ✅ Close Button */
+    .close-btn {
+      position: absolute;
+      top: 12px;
+      right: 12px;
+      background: none;
+      border: none;
+      font-size: 20px;
+      color: #888;
+      cursor: pointer;
+      transition: color 0.2s ease;
+      z-index: 1;
+    }
+
+    .close-btn:hover {
+      color: #000;
+    }
+
+    /* ✅ Modal Body */
+    .modal-body {
+      padding: 30px;
+      text-align: center;
+    }
+
+    .modal-body h2 {
+      font-size: 1.8rem;
+      color: #1f1f1f; /* Dark font */
+      margin-bottom: 12px;
+      font-weight: 600;
+    }
+
+    .modal-body p {
+      font-size: 1rem;
+      color: #555;
+      margin-bottom: 20px;
+      line-height: 1.5;
+    }
+
+    /* ✅ Button */
+    .btn {
+      background-color: #6a44f2;
+      color: #ffffff;
+      font-size: 1rem;
+      padding: 12px 24px;
+      border-radius: 8px;
+      border: none;
+      cursor: pointer;
+      transition: background 0.3s ease, transform 0.2s ease;
+      box-shadow: 0 4px 8px rgba(106, 68, 242, 0.2);
+    }
+
+    .btn:hover {
+      background-color: #5a38d7;
+      transform: translateY(-2px);
+    }
+
+    /* ✅ Fade-in Animation */
+    @keyframes fadeIn {
+      from { opacity: 0; transform: scale(0.95); }
+      to { opacity: 1; transform: scale(1); }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ✅ Modal Container -->
+<div class="modal">
+  <div class="modal-header">
+    <button class="close-btn" onclick="redirectToHome()">×</button>
+  </div>
+  <div class="modal-body">
+    <h2>Thank you!</h2>
+    <p>Your property purchase is successful. We will contact you soon for further details.</p>
+    <button class="btn" onclick="redirectToHome()">Close</button>
+  </div>
+</div>
+
+<script>
+  // ✅ Redirect to home page on close
+  function redirectToHome() {
+    window.location.href = 'home.html';
+  }
+</script>
+
+</body>
+</html>

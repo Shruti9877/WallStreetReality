@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Admin Login & Signup - Real Estate</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    
+    <style>
+
+/* ✅ Global Styling */
+body {
+    font-family: Arial, sans-serif;
+    background-image: url('bg3.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    margin: 0;
+    position: relative;
+}
+
+/* ✅ Background Overlay */
+body::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5); /* Dark overlay for better contrast */
+    z-index: -1;
+}
+
+/* ✅ Container */
+.container {
+    position: relative;
+    width: 800px;
+    height: 500px;
+    background-color: rgba(50, 76, 117, 0.85); /* Semi-transparent background */
+    border-radius: 15px;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.5);
+    display: flex;
+    overflow: hidden;
+    transition: transform 0.5s ease;
+    backdrop-filter: blur(10px); /* Blur effect for depth */
+}
+
+/* ✅ Form Container */
+.form-container {
+    width: 50%;
+    height: 100%;
+    padding: 40px;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    background-color: rgba(30, 41, 59, 0.85); /* Semi-transparent for better contrast */
+    color: #ffffff;
+    transition: transform 0.5s ease;
+}
+
+/* ✅ Swapping Animation */
+.signup-container {
+    transform: translateX(100%);
+}
+
+.login-container {
+    transform: translateX(0);
+}
+
+.container.active .signup-container {
+    transform: translateX(0);
+}
+
+.container.active .login-container {
+    transform: translateX(-100%);
+}
+
+/* ✅ Headings */
+h2 {
+    color: #ffffff;
+    text-align: center;
+    margin-bottom: 20px;
+    font-size: 24px;
+    font-weight: 600;
+}
+
+/* ✅ Form Inputs */
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block;
+    color: #e8e8e9;
+    margin-bottom: 8px;
+    font-size: 14px;
+}
+
+.form-group input {
+    width: 100%;
+    padding: 12px;
+    background-color: #feffff;
+    color: #000000;
+    border: 1px solid #000000;
+    border-radius: 8px;
+    font-size: 16px;
+    outline: none;
+    transition: border-color 0.3s ease;
+}
+
+.form-group input:focus {
+    border-color: #3b82f6;
+}
+
+/* ✅ Buttons */
+.btn {
+    width: 100%;
+    padding: 12px;
+    background-color: #3b82f6;
+    color: #ffffff;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: 500;
+    transition: background-color 0.3s ease;
+    margin-top: 10px;
+}
+
+.btn:hover {
+    background-color: #2563eb;
+}
+
+/* ✅ Error & Success Messages */
+.error-message,
+.success-message {
+    font-size: 14px;
+    display: none;
+    margin-bottom: 10px;
+}
+
+.error-message {
+    color: #ef4444;
+}
+
+.success-message {
+    color: #22c55e;
+}
+
+/* ✅ Toggle Button */
+.toggle-btn {
+    text-align: center;
+    margin-top: 5px;
+    color: #fbfbfb;
+    cursor: pointer;
+    font-size: 14px;
+    transition: color 0.3s ease;
+}
+
+.toggle-btn:hover {
+    color: #f8f8f8;
+    text-decoration: underline;
+}
+
+/* ✅ Responsive Design */
+@media (max-width: 768px) {
+    .container {
+        width: 100%;
+        height: auto;
+        flex-direction: column;
+        border-radius: 0;
+        box-shadow: none;
+    }
+
+    .form-container {
+        width: 100%;
+    }
+}
+
+</style>
+</head>
+<body>
+
+<!-- ✅ MAIN CONTAINER -->
+<div class="container" id="container">
+    <!-- ✅ LOGIN FORM -->
+    <div class="form-container login-container">
+        <h2>Admin Login</h2>
+        <div class="error-message" id="login-error-message"></div>
+        <form id="login-form">
+            <div class="form-group">
+                <label for="login-email">Email</label>
+                <input type="email" id="login-email" placeholder="Enter email" required />
+            </div>
+            <div class="form-group">
+                <label for="login-password">Password</label>
+                <input type="password" id="login-password" placeholder="Enter password" required />
+            </div>
+            <button type="submit" class="btn">Login</button>
+        </form>
+        <div class="toggle-btn" onclick="toggleForm()">Don't have an account? Signup</div>
+    </div>
+
+    <!-- ✅ SIGNUP FORM -->
+    <div class="form-container signup-container">
+        <h2>Admin Signup</h2>
+        <div class="error-message" id="signup-error-message"></div>
+        <div class="success-message" id="signup-success-message"></div>
+        <form id="signup-form">
+            <div class="form-group">
+                <label for="signup-name">Admin Name</label>
+                <input type="text" id="signup-name" placeholder="Enter name" required />
+            </div>
+            <div class="form-group">
+                <label for="signup-email">Email</label>
+                <input type="email" id="signup-email" placeholder="Enter email" required />
+            </div>
+            <div class="form-group">
+                <label for="signup-password">Password</label>
+                <input type="password" id="signup-password" placeholder="Enter password" required />
+            </div>
+            <div class="form-group">
+                <label for="confirm-password">Confirm Password</label>
+                <input type="password" id="confirm-password" placeholder="Confirm password" required />
+            </div>
+            <button type="submit" class="btn">Signup</button>
+        </form>
+        <div class="toggle-btn" onclick="toggleForm()">Already have an account? Login</div>
+    </div>
+</div>
+
+<!-- ✅ JavaScript -->
+<script>
+   // ✅ Toggle Between Login and Signup Forms
+function toggleForm() {
+    document.getElementById('container').classList.toggle('active');
+}
+
+// ✅ Signup Form Handling
+document.getElementById('signup-form').addEventListener('submit', function(e) {
+    e.preventDefault();
+    
+    const name = document.getElementById('signup-name').value;
+    const email = document.getElementById('signup-email').value;
+    const password = document.getElementById('signup-password').value;
+    const confirmPassword = document.getElementById('confirm-password').value;
+    const errorMessage = document.getElementById('signup-error-message');
+    const successMessage = document.getElementById('signup-success-message');
+
+    if (password !== confirmPassword) {
+        errorMessage.innerText = 'Passwords do not match!';
+        errorMessage.style.display = 'block';
+        return;
+    }
+
+    fetch('signup.php', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+        body: `name=${encodeURIComponent(name)}&email=${encodeURIComponent(email)}&password=${encodeURIComponent(password)}`
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.status === 'success') {
+            successMessage.innerText = data.message;
+            successMessage.style.display = 'block';
+            errorMessage.style.display = 'none';
+            
+            // Redirect to Admin Dashboard after 2 seconds
+            setTimeout(() => {
+                window.location.href = 'dashboard.html';
+            }, 2000);
+        } else {
+            errorMessage.innerText = data.message;
+            errorMessage.style.display = 'block';
+            successMessage.style.display = 'none';
+        }
+    });
+});
+
+// ✅ Login Form Handling
+document.getElementById('login-form').addEventListener('submit', function(e) {
+    e.preventDefault();
+    
+    const email = document.getElementById('login-email').value;
+    const password = document.getElementById('login-password').value;
+    const errorMessage = document.getElementById('login-error-message');
+
+    fetch('login.php', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+        body: `email=${encodeURIComponent(email)}&password=${encodeURIComponent(password)}`
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.status === 'success') {
+            alert('Login Successful!');
+            window.location.href = 'dashboard.html'; // Redirect to Admin Dashboard
+        } else {
+            errorMessage.innerText = data.message;
+            errorMessage.style.display = 'block';
+        }
+    });
+});
+
+</script>
+
+</body>
+</html>

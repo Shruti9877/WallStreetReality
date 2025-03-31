@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OTP Verification</title>
+    <style>
+        /* Hero-box (featured) */
+        #feat-head {
+            background-color: #e0ebed;
+        }
+
+        .heading-big {
+            color: #016450;
+            font-size: 2rem;
+            letter-spacing: 5px;
+            font-family: "Segoe UI", sans-serif;
+            font-weight: 700;
+            line-height: 2rem;
+        }
+
+        #filter-form {
+            background-color: #ffffff;
+            border-radius: 15px;
+        }
+
+        #search-btn {
+            background-color: #016450;
+            color: #ffffff;
+        }
+
+        .heading-med {
+            letter-spacing: 5px;
+            font-family: "Segoe UI", sans-serif;
+            font-weight: 700;
+        }
+
+        .card-price {
+            font-size: 1.3rem;
+        }
+
+        .aminities {
+            font-family: "Segoe UI", sans-serif;
+            font-weight: 700;
+            letter-spacing: 2px;
+            color: #999999;
+            font-size: 14px;
+        }
+
+        .btn-green {
+            background-color: #016450;
+            font-family: "Segoe UI", sans-serif;
+            font-weight: 700;
+            letter-spacing: 1.5px;
+            color: #ffffff;
+        }
+
+        .btn-lgrey {
+            background-color: #e0ebed;
+            font-family: "Segoe UI", sans-serif;
+            font-weight: 700;
+            letter-spacing: 1.5px;
+            color: #016450;
+        }
+
+        .btn-content {
+            font-family: "Segoe UI", sans-serif;
+            font-size: 14px;
+        }
+
+        .checked {
+            color: orange;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <!-- Search Box -->
+        <div class="container mt-3">
+            <div id="form-container" class="row justify-content-center my-3 my-lg-0 ">
+                <div class="col-12 col-md-8">
+                    <form id="filter-form" class="row align-items-center px-lg-0 border-0 p-2 shadow">
+                        <div class="col-12 col-sm-10 mx-auto">
+                            <input type="text" name="propName" class="form-control" id="exampleFormControlInput1" placeholder="Search By Name">
+                        </div>
+                        <div class="col-12 col-sm-2 mx-auto">
+                            <button type="submit" id="search-btn" class="btn material-icons shadow-lg mx-auto py-3 px-3 d-none d-sm-block">
+                                search
+                            </button>
+                            <button type="submit" id="search-btn" class="btn shadow-lg py-3 px-3 my-2 w-100 d-block d-sm-none">
+                                search
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <!-- HeroBox (Featured properties) Start -->
+        <div id="feat-box" class="container my-5">
+            <div class="row g-3 justify-content-start mb-5">
+                <div id="feat-head" class="col-8 col-md-6 col-lg-5">
+                    <p class="heading-big pt-3 px-5">FEATURED</p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12">
+                    <div class="card border-0 shadow-lg mb-3">
+                        <div class="row justify-content-between border-0 g-3 me-2">
+                            <div class="col-md-4 align-self-center">
+                                <img src="{{propService.properties[0].images[0].imageurl}}" class="img-fluid rounded-start ms-2 h-100" alt="img">
+                            </div>
+                            <div class="col-md-8">
+                                <div class="card-body mb-2">
+                                    <div class="row justify-content-between">
+                                        <div class="col-8">
+                                            <a class="prop-name" href="/property/{{propService.properties[0].id}}">
+                                                <h5 class="card-title">{{propService.properties[0].name}}</h5>
+                                            </a>
+                                            <h6 class="mt-3" style="font-size: 14px;">
+                                                <span><img src="../../assets/Rounded.png" alt="arrow" class="img-fluid"></span>
+                                                {{propService.properties[0].address.line1 + " " + propService.properties[0].address.line2}}
+                                            </h6>
+                                            <p class="mt-4 card-price">{{propService.properties[0].price}}</p>
+                                            <div class="row justify-content-between mt-5">
+                                                <div class="col-6 aminities">
+                                                    <div class="mb-5">
+                                                        <span class="me-2">
+                                                            <img src="../../assets/newimglisting/Icon awesome-shower.png" alt="shower" class="img-fluid" style="height: 25px">
+                                                        </span>
+                                                        Finished Baths
+                                                    </div>
+                                                    <div class="mb-5">
+                                                        <span class="me-2">
+                                                            <img src="../../assets/newimglisting/Icon ionic-ios-bed.png" alt="bed" class="img-fluid" style="height: 25px">
+                                                        </span>
+                                                        Bedrooms
+                                                    </div>
+                                                    <div>
+                                                        <span class="me-2">
+                                                            <img src="../../assets/newimglisting/Icon ionic-md-tv.png" alt="tv" class="img-fluid" style="height: 25px">
+                                                        </span>
+                                                        Luxurious Living
+                                                    </div>
+                                                </div>
+                                                <div class="col-6 aminities">
+                                                    <div class="mb-5">
+                                                        <span class="me-2">
+                                                            <img src="../../assets/newimglisting/Icon awesome-parking.png" alt="parking" class="img-fluid" style="height: 25px">
+                                                        </span>
+                                                        Parking Space
+                                                    </div>
+                                                    <div class="mb-5">
+                                                        <span class="me-2">
+                                                            <img src="../../assets/newimglisting/Icon map-park.png" alt="park" class="img-fluid" style="height: 25px">
+                                                        </span>
+                                                        Play Area
+                                                    </div>
+                                                    <div>
+                                                        <span class="me-2">
+                                                            <img src="../../assets/newimglisting/Icon map-tennis.png" alt="tennis" class="img-fluid" style="height: 25px">
+                                                        </span>
+                                                        Tennis Court
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-4 position-relative">
+                                            <div class="row">
+                                                <div class="col-12 w-100">
+                                                    <span class="mx-2" *ngFor="let star of stars.slice(0,propService.properties[0].avgRating), let i=index" [class]="star"></span>
+                                                </div>
+                                                <div class="col-12 w-100 position-absolute bottom-0">
+                                                    <button type="button" href="/wishlist/{{auth.currentUser.userId}}" class="btn btn-lgrey shadow-lg mb-3 w-100">
+                                                        WISHLIST
+                                                        <span class="material-icons">favorite_border</span>
+                                                    </button>
+                                                    <button type="button" href="/bookings/{{auth.currentUser.userId}}" class="btn btn-green shadow-lg w-100">
+                                                        BUY NOW
+                                                        <span class="material-icons">navigate_next</span>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Cards -->
+        <div class="container my-5">
+            <div class="row g-4">
+                <div class="col-12 col-md-6" *ngFor="let property of propService.properties.slice(1)">
+                    <div class="card border-0 shadow-lg" style="border-radius: 15px;">
+                        <img src="{{property.images[0].imageurl}}" class="card-img-top px-2 pt-2" alt="building">
+                        <div class="card-body d-flex justify-content-between">
+                            <div class="px-2 pt-1">
+                                <a class="cardAminity" href="/property/{{property.id}}">
+                                    <h5 class="card-title">{{property.name}}</h5>
+                                </a>
+                                <h6 class="mt-3 featuredes" style="font-size: 14px;">
+                                    <span><img src="../../assets/Rounded.png" alt="arrow" class="img-fluid me-2" style="height: 20px;"></span>
+                                    {{property.address.line1 + " " + property.address.line2}}
+                                </h6>
+                                <h4 class="pt-3 pb-4 cardAminity">{{property.price}}</h4>
+                                <button type="button" href="/bookings" class="btn blcolor my-3 me-3 px-4 py-3 shadow-lg">
+                                    BUY NOW
+                                    <span><img src="../../assets/rightarrow.png" alt="arrow" class="img-fluid ms-5" style="height: 20px"></span>
+                                </button>
+                            </div>
+                            <div class="ms-3 me-4">
+                                <h5 class="mb-4 mt-3 aminities" style="font-size: 14px;">
+                                    <span class="px-3">
+                                        <img src="../../assets/newimglisting/Icon awesome-shower.png" alt="shower" class="img-fluid" style="height: 15px">
+                                    </span>
+                                    Finished Baths
+                                </h5>
+                                <h5 class="mb-4 mt-3 aminities" style="font-size: 14px;">
+                                    <span class="px-3">
+                                        <img src="../../assets/newimglisting/Icon ionic-ios-bed.png" alt="bed" class="img-fluid" style="height: 15px">
+                                    </span>
+                                    Spacious Bedrooms
+                                </h5>
+                                <h5 class="mb-4 mt-3 aminities" style="font-size: 14px;">
+                                    <span class="px-3">
+                                        <img src="../../assets/newimglisting/Icon ionic-md-tv.png" alt="tv" class="img-fluid" style="height: 15px">
+                                    </span>
+                                    Luxurious Living
+                                </h5>
+                                <div>
+                                    <span class="mx-auto" *ngFor="let star of stars.slice(0,property.avgRating), let i=index" [class]="star"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+</body>
+</html>

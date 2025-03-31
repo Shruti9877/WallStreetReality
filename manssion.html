@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Real Estate Listings</title>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f4;
+    }
+
+    header {
+      background-color: #333;
+      color: white;
+      padding: 10px 0;
+      text-align: center;
+    }
+
+    .navbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0 20px;
+    }
+
+    h1.logo {
+      font-size: 24px;
+    }
+
+    button {
+      padding: 10px 20px;
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      cursor: pointer;
+      font-size: 16px;
+      border-radius: 4px;
+    }
+
+    button:hover {
+      background-color: #45a049;
+    }
+
+    .property-listings {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      padding: 20px;
+    }
+
+    .listing-item {
+      background-color: white;
+      width: 30%;
+      margin-bottom: 20px;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .listing-image {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+    }
+
+    .listing-details {
+      padding: 15px;
+      flex-grow: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .listing-title {
+      font-size: 20px;
+      margin-bottom: 10px;
+      color: #333;
+    }
+
+    .listing-description {
+      font-size: 14px;
+      margin-bottom: 15px;
+      color: #666;
+    }
+
+    .listing-price {
+      font-size: 18px;
+      color: #4CAF50;
+      margin-bottom: 10px;
+    }
+
+    .buttons {
+      display: flex;
+      justify-content: flex-start;
+      gap: 10px;
+    }
+
+    .view-map-btn, .wishlist-btn, .buy-now-btn {
+      background-color: #4CAF50;
+      color: white;
+      padding: 8px 12px;
+      border: none;
+      cursor: pointer;
+      font-size: 14px;
+      border-radius: 4px;
+      flex: 1;
+      text-align: center;
+    }
+
+    .view-map-btn:hover, .wishlist-btn:hover, .buy-now-btn:hover {
+      background-color: #45a049;
+    }
+
+    #map-container {
+      display: none;
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: white;
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+      border-radius: 10px;
+      z-index: 1000;
+      width: 80%;
+      max-width: 600px;
+      padding: 15px;
+    }
+
+    #map {
+      height: 300px;
+      width: 100%;
+      border-radius: 8px;
+    }
+
+    #mapCloseBtn {
+      display: block;
+      margin: 10px auto 0;
+      background-color: #333;
+      color: white;
+      padding: 8px 12px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      text-align: center;
+    }
+
+    @media (max-width: 768px) {
+      .listing-item {
+        width: 48%;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .listing-item {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="navbar">
+      <h1 class="logo">Real Estate</h1>
+      <button id="viewWishlistBtn">View My Wishlist</button>
+    </div>
+  </header>
+
+  <main>
+    <div id="map-container">
+      <div id="map"></div>
+      <button id="mapCloseBtn">Close Map</button>
+    </div>
+
+    <section class="property-listings" id="propertyListings">
+      <div class="listing-item">
+        <img src="photos/mansion1.jpg" alt="Paris" class="listing-image">
+        <div class="listing-details">
+          <h2 class="listing-title">Paris</h2>
+          <p class="listing-description">4 BHK, City View, Modern Design</p>
+          <p class="listing-price">₹ 6 Crores</p>
+          <div class="buttons">
+            <button class="view-map-btn" data-lat="48.8566" data-lng="2.3522">View on Map</button>
+            <button class="wishlist-btn" data-name="Paris" data-price="₹ 6 Crores" data-image="photos/mansion1.jpg">Add to Wishlist</button>
+            <button class="buy-now-btn">Buy Now</button>
+          </div>
+        </div>
+      </div>
+      
+      <div class="listing-item">
+        <img src="photos/mansion2.jpg" alt="Dubai" class="listing-image">
+        <div class="listing-details">
+          <h2 class="listing-title">Dubai</h2>
+          <p class="listing-description">5 BHK, Waterfront, Contemporary Design</p>
+          <p class="listing-price">₹ 8 Crores</p>
+          <div class="buttons">
+            <button class="view-map-btn" data-lat="25.276987" data-lng="55.296249">View on Map</button>
+            <button class="wishlist-btn" data-name="Dubai" data-price="₹ 8 Crores" data-image="photos/mansion2.jpg">Add to Wishlist</button>
+            <button class="buy-now-btn">Buy Now</button>
+          </div>
+        </div>
+      </div>
+      
+      <div class="listing-item">
+        <img src="photos/mansion3.jpg" alt="Sydney" class="listing-image">
+        <div class="listing-details">
+          <h2 class="listing-title">Sydney</h2>
+          <p class="listing-description">3 BHK, Ocean View, Luxury</p>
+          <p class="listing-price">₹ 7 Crores</p>
+          <div class="buttons">
+            <button class="view-map-btn" data-lat="-33.8688" data-lng="151.2093">View on Map</button>
+            <button class="wishlist-btn" data-name="Sydney" data-price="₹ 7 Crores" data-image="photos/mansion3.jpg">Add to Wishlist</button>
+            <button class="buy-now-btn">Buy Now</button>
+          </div>
+        </div>
+      </div>
+      
+      <div class="listing-item">
+        <img src="photos/mansion4.jpg" alt="Tokyo" class="listing-image">
+        <div class="listing-details">
+          <h2 class="listing-title">Tokyo</h2>
+          <p class="listing-description">5 BHK, Modern Architecture</p>
+          <p class="listing-price">₹ 9 Crores</p>
+          <div class="buttons">
+            <button class="view-map-btn" data-lat="35.6762" data-lng="139.6503">View on Map</button>
+            <button class="wishlist-btn" data-name="Tokyo" data-price="₹ 9 Crores" data-image="photos/mansion4.jpg">Add to Wishlist</button>
+            <button class="buy-now-btn">Buy Now</button>
+          </div>
+        </div>
+      </div>
+      
+      <div class="listing-item">
+        <img src="photos/mansion5.jpg" alt="New York" class="listing-image">
+        <div class="listing-details">
+          <h2 class="listing-title">New York</h2>
+          <p class="listing-description">6 BHK, City Skyline</p>
+          <p class="listing-price">₹ 10 Crores</p>
+          <div class="buttons">
+            <button class="view-map-btn" data-lat="40.7128" data-lng="-74.0060">View on Map</button>
+            <button class="wishlist-btn" data-name="New York" data-price="₹ 10 Crores" data-image="photos/mansion5.jpg">Add to Wishlist</button>
+            <button class="buy-now-btn">Buy Now</button>
+          </div>
+        </div>
+      </div>
+      
+      <div class="listing-item">
+        <img src="photos/mansion6.jpg" alt="London" class="listing-image">
+        <div class="listing-details">
+          <h2 class="listing-title">London</h2>
+          <p class="listing-description">4 BHK, Victorian Style</p>
+          <p class="listing-price">₹ 7.5 Crores</p>
+          <div class="buttons">
+            <button class="view-map-btn" data-lat="51.5074" data-lng="-0.1278">View on Map</button>
+            <button class="wishlist-btn" data-name="London" data-price="₹ 7.5 Crores" data-image="photos/mansion6.jpg">Add to Wishlist</button>
+            <button class="buy-now-btn">Buy Now</button>
+          </div>
+        </div>
+      </div>
+      
+      <div class="listing-item">
+        <img src="photos/mansion7.jpg" alt="Bali" class="listing-image">
+        <div class="listing-details">
+          <h2 class="listing-title">Bali</h2>
+          <p class="listing-description">3 BHK, Tropical Resort</p>
+          <p class="listing-price">₹ 6.5 Crores</p>
+          <div class="buttons">
+            <button class="view-map-btn" data-lat="-8.3405" data-lng="115.0920">View on Map</button>
+            <button class="wishlist-btn" data-name="Bali" data-price="₹ 6.5 Crores" data-image="photos/mansion7.jpg">Add to Wishlist</button>
+            <button class="buy-now-btn">Buy Now</button>
+          </div>
+        </div>
+      </div>
+      
+      <div class="listing-item">
+        <img src="photos/mansion8.jpg" alt="Los Angeles" class="listing-image">
+        <div class="listing-details">
+          <h2 class="listing-title">Los Angeles</h2>
+          <p class="listing-description">5 BHK, Hillside Villa</p>
+          <p class="listing-price">₹ 12 Crores</p>
+          <div class="buttons">
+            <button class="view-map-btn" data-lat="34.0522" data-lng="-118.2437">View on Map</button>
+            <button class="wishlist-btn" data-name="Los Angeles" data-price="₹ 12 Crores" data-image="photos/mansion8.jpg">Add to Wishlist</button>
+            <button class="buy-now-btn">Buy Now</button>
+          </div>
+        </div>
+      </div>
+      
+      <div class="listing-item">
+        <img src="photos/mansion9.jpg" alt="Zurich" class="listing-image">
+        <div class="listing-details">
+          <h2 class="listing-title">Zurich</h2>
+          <p class="listing-description">6 BHK, Lake View</p>
+          <p class="listing-price">₹ 10.5 Crores</p>
+          <div class="buttons">
+            <button class="view-map-btn" data-lat="47.3769" data-lng="8.5417">View on Map</button>
+            <button class="wishlist-btn" data-name="Zurich" data-price="₹ 10.5 Crores" data-image="photos/mansion9.jpg">Add to Wishlist</button>
+            <button class="buy-now-btn">Buy Now</button>
+          </div>
+        </div>
+      </div>
+      
+      <div class="listing-item">
+        <img src="photos/mansion10.jpg" alt="Amsterdam" class="listing-image">
+        <div class="listing-details">
+          <h2 class="listing-title">Amsterdam</h2>
+          <p class="listing-description">5 BHK, Canal View</p>
+          <p class="listing-price">₹ 9 Crores</p>
+          <div class="buttons">
+            <button class="view-map-btn" data-lat="52.3676" data-lng="4.9041">View on Map</button>
+            <button class="wishlist-btn" data-name="Amsterdam" data-price="₹ 9 Crores" data-image="photos/mansion10.jpg">Add to Wishlist</button>
+            <button class="buy-now-btn">Buy Now</button>
+          </div>
+        </div>
+      </div>
+      
+      <div class="listing-item">
+        <img src="photos/mansion11.jpg" alt="Rome" class="listing-image">
+        <div class="listing-details">
+          <h2 class="listing-title">Rome</h2>
+          <p class="listing-description">4 BHK, Historical Villa</p>
+          <p class="listing-price">₹ 7 Crores</p>
+          <div class="buttons">
+            <button class="view-map-btn" data-lat="41.9028" data-lng="12.4964">View on Map</button>
+            <button class="wishlist-btn" data-name="Rome" data-price="₹ 7 Crores" data-image="photos/mansion11.jpg">Add to Wishlist</button>
+            <button class="buy-now-btn">Buy Now</button>
+          </div>
+        </div>
+      </div>
+      
+      <div class="listing-item">
+        <img src="photos/mansion12.jpg" alt="Barcelona" class="listing-image">
+        <div class="listing-details">
+          <h2 class="listing-title">Barcelona</h2>
+          <p class="listing-description">4 BHK, Sea View</p>
+          <p class="listing-price">₹ 8 Crores</p>
+          <div class="buttons">
+            <button class="view-map-btn" data-lat="41.3784" data-lng="2.1916">View on Map</button>
+            <button class="wishlist-btn" data-name="Barcelona" data-price="₹ 8 Crores" data-image="photos/mansion12.jpg">Add to Wishlist</button>
+            <button class="buy-now-btn">Buy Now</button>
+          </div>
+        </div>
+      </div>
+      
+      <div class="listing-item">
+        <img src="photos/mansion13.jpg" alt="Singapore" class="listing-image">
+        <div class="listing-details">
+          <h2 class="listing-title">Singapore</h2>
+          <p class="listing-description">4 BHK, Skyline View</p>
+          <p class="listing-price">₹ 7.5 Crores</p>
+          <div class="buttons">
+            <button class="view-map-btn" data-lat="1.3521" data-lng="103.8198">View on Map</button>
+            <button class="wishlist-btn" data-name="Singapore" data-price="₹ 7.5 Crores" data-image="photos/mansion13.jpg">Add to Wishlist</button>
+            <button class="buy-now-btn" href="otpv.html" class="otp">Buy Now</button>
+
+          </div>
+        </div>
+      </div>
+      
+      
+      
+    </section>
+  </main>
+
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script>
+    const map = L.map('map').setView([20.5937, 78.9629], 5);
+
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      maxZoom: 18,
+      attribution: '© OpenStreetMap contributors'
+    }).addTo(map);
+
+    const mapContainer = document.getElementById('map-container');
+    const mapCloseBtn = document.getElementById('mapCloseBtn');
+
+    document.querySelectorAll('.view-map-btn').forEach(button => {
+      button.addEventListener('click', function() {
+        const lat = parseFloat(this.dataset.lat);
+        const lng = parseFloat(this.dataset.lng);
+        mapContainer.style.display = 'block';
+        map.setView([lat, lng], 14);
+        L.marker([lat, lng]).addTo(map)
+          .bindPopup(`${this.closest('.listing-item').querySelector('.listing-title').textContent}`)
+          .openPopup();
+      });
+    });
+
+    mapCloseBtn.addEventListener('click', function() {
+      mapContainer.style.display = 'none';
+    });
+
+    document.querySelectorAll('.wishlist-btn').forEach(button => {
+      button.addEventListener('click', function() {
+        const wishlist = JSON.parse(localStorage.getItem('wishlist')) || [];
+        const property = {
+          name: this.dataset.name,
+          price: this.dataset.price,
+          image: this.dataset.image
+        };
+
+        wishlist.push(property);
+        localStorage.setItem('wishlist', JSON.stringify(wishlist));
+        alert(`Added to Wishlist: ${property.name}`);
+      });
+    });
+
+    document.getElementById('viewWishlistBtn').addEventListener('click', function() {
+      window.location.href = 'wishlist.html';  // Redirect to wishlist page
+    });
+
+    document.querySelectorAll('.buy-now-btn').forEach(button => {
+  button.addEventListener('click', function() {
+    alert('Redirecting to secure payment gateway...');
+    window.location.href = 'otpv.html'; // Replace with the actual URL of the next page
+  });
+});
+
+     
+  </script>
+</body>
+</html>
