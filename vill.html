@@ -335,40 +335,41 @@
     });
   
     // ✅ Buy Now with Property ID
-    document.querySelectorAll('.buy-now-btn').forEach(button => {
-  button.addEventListener('click', function() {
-    const propertyId = this.dataset.id;
+   document.querySelectorAll('.buy-now-btn').forEach(button => {
+     button.addEventListener('click', function() {
+      window.location.href = 'otpv.html';
+   // const propertyId = this.dataset.id;
 
-    // Collect user details (You can create a form for better UX)
-    const buyerName = prompt("Enter your full name:");
-    const buyerEmail = prompt("Enter your email address:");
+//     // Collect user details (You can create a form for better UX)
+//     const buyerName = prompt("Enter your full name:");
+//     const buyerEmail = prompt("Enter your email address:");
 
-    if (buyerName && buyerEmail) {
-      // Send data to backend via AJAX
-      fetch('buy_property.php', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/x-www-form-urlencoded'
-        },
-        body: `property_id=${propertyId}&buyer_name=${encodeURIComponent(buyerName)}&buyer_email=${encodeURIComponent(buyerEmail)}`
-      })
-      .then(response => response.json())
-      .then(data => {
-        if (data.status === "success") {
-          alert("Property purchased successfully!");
-          window.location.href = `confirmation.html?property_id=${propertyId}`;
-        } else {
-          alert(`Error: ${data.message}`);
-        }
-      })
-      .catch(error => {
-        console.error("Error:", error);
-      });
-    } else {
-      alert("Please enter valid details.");
-    }
+//     if (buyerName && buyerEmail) {
+//       // Send data to backend via AJAX
+//       fetch('buy_property.php', {
+//         method: 'POST',
+//         headers: {
+//           'Content-Type': 'application/x-www-form-urlencoded'
+//         },
+//         body: `property_id=${propertyId}&buyer_name=${encodeURIComponent(buyerName)}&buyer_email=${encodeURIComponent(buyerEmail)}`
+//       })
+//       .then(response => response.json())
+//       .then(data => {
+//         if (data.status === "success") {
+//           alert("Property purchased successfully!");
+//           window.location.href = `confirmation.html?property_id=${propertyId}`;
+//         } else {
+//           alert(`Error: ${data.message}`);
+//         }
+//       })
+//       .catch(error => {
+//         console.error("Error:", error);
+//       });
+//     } else {
+//       alert("Please enter valid details.");
+//     }
   });
-});
+})
 
   </script>
   
