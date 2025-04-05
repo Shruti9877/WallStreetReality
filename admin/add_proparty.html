@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Add New Property</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 30px;
+      background-color: #f5f5f5;
+    }
+    .form-container {
+      max-width: 800px;
+      margin: auto;
+      background: #fff;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 0 15px rgba(0,0,0,0.1);
+    }
+    h2 {
+      text-align: center;
+      margin-bottom: 25px;
+    }
+    .form-group {
+      margin-bottom: 20px;
+    }
+    label {
+      display: block;
+      margin-bottom: 6px;
+      font-weight: bold;
+    }
+    input, textarea, select {
+      width: 100%;
+      padding: 10px;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+    }
+    button {
+      background-color: #007bff;
+      color: white;
+      padding: 12px 20px;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 16px;
+    }
+    button:hover {
+      background-color: #0056b3;
+    }
+  </style>
+</head>
+<body>
+
+<div class="form-container">
+  <h2>Add New Property</h2>
+  <form action="add_property.php" method="POST" enctype="multipart/form-data">
+    
+    <div class="form-group">
+      <label>Property Title:</label>
+      <input type="text" name="title" required>
+    </div>
+
+    <div class="form-group">
+      <label>Price (INR):</label>
+      <input type="number" name="price" required>
+    </div>
+
+    <div class="form-group">
+      <label>Location:</label>
+      <input type="text" name="location" required>
+    </div>
+
+    <div class="form-group">
+      <label>Property Type:</label>
+      <select name="type" required>
+        <option value="">-- Select Type --</option>
+        <option value="Apartment">Apartment</option>
+        <option value="Villa">Villa</option>
+        <option value="Mansion">Mansion</option>
+        <option value="Commercial">Commercial</option>
+        <option value="Plot">Plot</option>
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label>Number of Bedrooms:</label>
+      <input type="number" name="bedrooms" min="1">
+    </div>
+
+    <div class="form-group">
+      <label>Number of Bathrooms:</label>
+      <input type="number" name="bathrooms" min="1">
+    </div>
+
+    <div class="form-group">
+      <label>Size (sq.ft):</label>
+      <input type="number" name="area">
+    </div>
+
+    <div class="form-group">
+      <label>Upload Images:</label>
+      <input type="file" name="images[]" multiple accept="image/*">
+    </div>
+
+    <div class="form-group">
+      <label>Description:</label>
+      <textarea name="description" rows="5"></textarea>
+    </div>
+
+    <div class="form-group">
+      <label>Status:</label>
+      <select name="status" required>
+        <option value="Available">Available</option>
+        <option value="Sold">Sold</option>
+        <option value="Rented">Rented</option>
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label>Agent Name:</label>
+      <input type="text" name="agent_name">
+    </div>
+
+    <div class="form-group">
+      <label>Agent Contact:</label>
+      <input type="text" name="agent_contact">
+    </div>
+
+    <button type="submit">Add Property</button>
+  </form>
+</div>
+
+</body>
+</html>

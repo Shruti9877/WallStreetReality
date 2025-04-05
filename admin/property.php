@@ -1,3 +1,21 @@
+<?php
+$svname = "localhost";
+$dbname = "real_estate";
+$username = "root";
+$password = "";
+
+try {
+    $pdo = new PDO("mysql:host=$svname;dbname=$dbname", $username, $password);
+    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+} catch(PDOException $e) {
+    die("Database connection failed: " . $e->getMessage());
+}
+
+// Fetch all properties
+$stmt = $pdo->query("SELECT * FROM properties ORDER BY id DESC");
+$properties = $stmt->fetchAll(PDO::FETCH_ASSOC);
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -91,7 +109,7 @@
     <div class="sidebar">
         <h2>Admin Panel</h2>
         <a href="dashboard.html"><i class="fas fa-tachometer-alt"></i> Dashboard</a>
-        <a href="pro.html"><i class="fas fa-building"></i> Manage Properties</a>
+        <a href="propaerty.php"><i class="fas fa-building"></i> Manage Properties</a>
         <a href="users.html"><i class="fas fa-users"></i> User Management</a>
         <a href="analytics.html"><i class="fas fa-chart-line"></i> Analytics</a>
         <a href="settings.html"><i class="fas fa-cogs"></i> Settings</a>
@@ -102,50 +120,27 @@
         <div class="header">Manage Properties</div>
 
         <div class="properties-container">
-            <a href="add-property.html" class="add-button"><i class="fas fa-plus"></i> Add New Property</a>
+            <a href="add_proparty.html" class="add-button"><i class="fas fa-plus"></i> Add New Property</a>
             
             <table>
-                <tr>
-                    <th>ID</th>
-                    <th>Property Name</th>
-                    <th>Location</th>
-                    <th>Price</th>
-                    <th>Status</th>
-                    <th>Actions</th>
-                </tr>
-                <tr>
-                    <td>1</td>
-                    <td>Luxury Villa</td>
-                    <td>Mumbai, India</td>
-                    <td>$500,000</td>
-                    <td>Available</td>
-                    <td class="actions">
-                        <i class="fas fa-edit edit"></i>
-                        <i class="fas fa-trash delete"></i>
-                    </td>
-                </tr>
-                <tr>
-                    <td>2</td>
-                    <td>Beachfront Apartment</td>
-                    <td>Goa, India</td>
-                    <td>$320,000</td>
-                    <td>Sold</td>
-                    <td class="actions">
-                        <i class="fas fa-edit edit"></i>
-                        <i class="fas fa-trash delete"></i>
-                    </td>
-                </tr>
-                <tr>
-                    <td>3</td>
-                    <td>Downtown Loft</td>
-                    <td>Bangalore, India</td>
-                    <td>$150,000</td>
-                    <td>Pending</td>
-                    <td class="actions">
-                        <i class="fas fa-edit edit"></i>
-                        <i class="fas fa-trash delete"></i>
-                    </td>
-                </tr>
+            <?php foreach ($properties as $property): ?>
+<tr>
+    <td><?= htmlspecialchars($property['id']) ?></td>
+    <td><?= htmlspecialchars($property['title']) ?></td>
+    <td><?= htmlspecialchars($property['location']) ?></td>
+    <td><?= htmlspecialchars($property['price']) ?></td>
+    <td><?= htmlspecialchars($property['status']) ?></td>
+                
+    <td class="actions">
+    <a href="edit_property.php?id=<?= $property['id'] ?>">Edit</a>
+
+  
+
+
+    </td>
+</tr>
+<?php endforeach; ?>
+
             </table>
         </div>
     </div>
