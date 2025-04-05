@@ -102,7 +102,7 @@
     foreach ($imgs as $img) {
         $img = trim($img); // remove whitespace
         if (!empty($img)) {
-            echo "<img src='admin/uploads/{$img}' alt='Property Image'>";
+            echo "<img src='admin/{$img}' alt='Property Image'>";
         }
     }
     ?>

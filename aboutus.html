@@ -8,198 +8,258 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
     <style>
         /* General Styles */
-body {
-    font-family: 'Arial', sans-serif;
-    margin: 0;
-    padding: 0;
-    color: #333;
-    overflow-x: hidden;
-    background-color: #f9f9f9;
-}
+    body {
+        font-family: 'Arial', sans-serif;
+        margin: 0;
+        padding: 0;
+        color: #000000;
+        overflow-x: hidden;
+        background-color: #ffffff;
+    }
 
-/* Navbar Styles */
-.navbar {
-    background: #0056b3;
-    padding: 1rem 0;
-    text-align: center;
-    position: sticky;
-    top: 0;
-    width: 100%;
-    z-index: 1000;
-}
+    /* Navbar base styling */
+    .navbar {
+    background-color: #ffffff;
+    padding: 15px 0;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+    animation: slideDown 0.7s ease-in-out;
+    }
 
-.navbar ul {
+    /* Navigation links container */
+    .nav-links {
     list-style: none;
-    padding: 0;
-    margin: 0;
     display: flex;
     justify-content: center;
-}
-
-.navbar li {
-    margin: 0 15px;
-}
-
-.navbar a {
-    text-decoration: none;
-    color: white;
-    font-size: 1.2rem;
-    font-weight: bold;
-    transition: color 0.3s ease;
-}
-
-.navbar a:hover {
-    color: #ffd700;
-}
-
-/* Hero Section */
-.hero {
-    position: relative;
-    height: 80vh;
-    display: flex;
     align-items: center;
-    justify-content: center;
-    text-align: center;
-    color: white;
-    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.7);
-    overflow: hidden;
-}
-
-.bg-video {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    z-index: -1;
-}
-
-.hero h1 {
-    font-size: 3.5rem;
     margin: 0;
-    animation: slideInDown 2s;
-}
+    padding: 0;
+    }
 
-/* Content Section */
-.content {
-    max-width: 1200px;
-    margin: 2rem auto;
-    padding: 0 1rem;
-    text-align: center;
-}
+    /* Each list item in nav */
+    .nav-links li {
+    margin: 0 20px;
+    opacity: 0;
+    animation: fadeIn 1s forwards;
+    }
 
-.content h2 {
-    font-size: 2.5rem;
-    margin-bottom: 1rem;
-    color: #0056b3;
-}
+    /* Add delay for each menu item (staggered animation) */
+    .nav-links li:nth-child(1) { animation-delay: 0.3s; }
+    .nav-links li:nth-child(2) { animation-delay: 0.5s; }
+    .nav-links li:nth-child(3) { animation-delay: 0.7s; }
 
-.content p {
-    line-height: 1.8;
-    font-size: 1.1rem;
-    margin-bottom: 1.5rem;
-}
-
-/* Stats Section */
-.stats {
-    display: flex;
-    justify-content: space-around;
-    flex-wrap: wrap;
-    margin-top: 2rem;
-}
-
-.stat {
-    text-align: center;
-    flex: 1;
-    min-width: 250px;
-    padding: 1rem;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    margin: 0.5rem;
-    background: white;
-    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
-    transition: transform 0.3s ease;
-}
-
-.stat:hover {
-    transform: scale(1.05);
-}
-
-.stat h3 {
-    font-size: 2rem;
-    margin: 0;
-    color: #0056b3;
-}
-
-.stat p {
-    margin: 0.5rem 0 0;
-    font-size: 1.1rem;
-}
-
-/* Mission Section */
-.mission {
-    background: #f5f5f5;
-    padding: 2rem 1rem;
-    border-radius: 8px;
-    text-align: center;
-    margin-top: 3rem;
-}
-
-.mission h3 {
-    font-size: 2rem;
-    margin-bottom: 1rem;
-}
-
-.mission p {
-    font-size: 1.2rem;
-    line-height: 1.8;
-}
-
-/* Footer Section */
-.footer {
-    background: #333;
-    color: white;
-    text-align: center;
-    padding: 1rem 0;
-    margin-top: 2rem;
-}
-
-.footer a {
-    color: #ddd;
+    /* Link styling */
+    .nav-links a {
+    color: rgb(0, 0, 0);
     text-decoration: none;
-    margin: 0 0.5rem;
+    font-size: 18px;
+    padding: 8px 16px;
+    position: relative;
     transition: color 0.3s ease;
-}
+    }
 
-.footer a:hover {
-    color: white;
-}
+    /* Fancy underline hover effect */
+    .nav-links a::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: -4px;
+    width: 100%;
+    height: 2px;
+    background-color: #000;
+    transform: scaleX(0);
+    transform-origin: right;
+    transition: transform 0.3s ease;
+    }
 
-/* Animations */
-@keyframes slideInDown {
+    .nav-links a:hover::after {
+    transform: scaleX(1);
+    transform-origin: left;
+    }
+
+    .nav-links a:hover {
+    color: #ff7070;
+    }
+
+    /* Slide down animation for navbar */
+    @keyframes slideDown {
     from {
-        transform: translateY(-100px);
+        transform: translateY(-100%);
         opacity: 0;
     }
     to {
         transform: translateY(0);
         opacity: 1;
     }
-}
+    }
+
+    /* Fade-in animation for each item */
+    @keyframes fadeIn {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    }
+
+
+
+    /* Hero Section */
+    .hero {
+        position: relative;
+        height: 80vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        color: white;
+        text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.7);
+        overflow: hidden;
+    }
+
+    .bg-video {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        z-index: -1;
+    }
+
+    .hero h1 {
+        font-size: 3.5rem;
+        margin: 0;
+        animation: slideInDown 2s;
+    }
+
+    /* Content Section */
+    .content {
+        max-width: 1200px;
+        margin: 2rem auto;
+        padding: 0 1rem;
+        text-align: center;
+    }
+
+    .content h2 {
+        font-size: 2.5rem;
+        margin-bottom: 1rem;
+        color: #0056b3;
+    }
+
+    .content p {
+        line-height: 1.8;
+        font-size: 1.1rem;
+        margin-bottom: 1.5rem;
+    }
+
+    /* Stats Section */
+    .stats {
+        display: flex;
+        justify-content: space-around;
+        flex-wrap: wrap;
+        margin-top: 2rem;
+    }
+
+    .stat {
+        text-align: center;
+        flex: 1;
+        min-width: 250px;
+        padding: 1rem;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        margin: 0.5rem;
+        background: white;
+        box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
+        transition: transform 0.3s ease;
+    }
+
+    .stat:hover {
+        transform: scale(1.05);
+    }
+
+    .stat h3 {
+        font-size: 2rem;
+        margin: 0;
+        color: #0056b3;
+    }
+
+    .stat p {
+        margin: 0.5rem 0 0;
+        font-size: 1.1rem;
+    }
+
+    /* Mission Section */
+    .mission {
+        background: #f5f5f5;
+        padding: 2rem 1rem;
+        border-radius: 8px;
+        text-align: center;
+        margin-top: 3rem;
+    }
+
+    .mission h3 {
+        font-size: 2rem;
+        margin-bottom: 1rem;
+    }
+
+    .mission p {
+        font-size: 1.2rem;
+        line-height: 1.8;
+    }
+
+    /* Footer Section */
+    .footer {
+        background: #333;
+        color: white;
+        text-align: center;
+        padding: 1rem 0;
+        margin-top: 2rem;
+    }
+
+    .footer a {
+        color: #ddd;
+        text-decoration: none;
+        margin: 0 0.5rem;
+        transition: color 0.3s ease;
+    }
+
+    .footer a:hover {
+        color: white;
+    }
+
+    /* Animations */
+    @keyframes slideInDown {
+        from {
+            transform: translateY(-100px);
+            opacity: 0;
+        }
+        to {
+            transform: translateY(0);
+            opacity: 1;
+        }
+    }
 
     </style>
 </head>
 <body>
     <!-- Navbar -->
-    <nav class="navbar">
-        <ul>
-            <li><a href="home.html">Home</a></li>
-            
-            <li><a href="propertis.html">Properties</a></li>
-           
-        </ul>
-    </nav>
+    <div class="navbar">
+        <div class="logo-container">
+            <a href="#">
+                <img src="photos/es4.jpg" alt="Logo" class="logo" />
+            </a>
+        </div>
+        <div class="nav-links">
+            <a href="home.php">Home</a>
+            <a href="propertis.html">Properties</a>
+            <a href="#">Contact</a>
+        </div>
+    </div>
+    
+    <!-- Hero Section with Video Background -->    
     <div class="hero">
         <video autoplay muted loop class="bg-video">
             <source src="bg3.mp4" type="video/mp4">

@@ -1743,7 +1743,7 @@ text-align: center;
 
           </ul>
 
-          <button class="header-top-btn">Add Listing</button>
+          
         </div>
 
       </div>
@@ -1774,7 +1774,7 @@ text-align: center;
             <ul class="navbar-list">
 
               <li>
-                <a href="home.html" class="navbar-link" data-nav-link>Home</a>
+                <a href="home.php" class="navbar-link" data-nav-link>Home</a>
               </li>
 
               <li>
