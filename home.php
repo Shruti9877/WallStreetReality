@@ -1790,7 +1790,7 @@ text-align: center;
 
 
               <li>
-                <a href="#contact" class="navbar-link" data-nav-link>Contact</a>
+                <a href="contact.html" class="navbar-link" data-nav-link>Contact</a>
               </li>
 
             </ul>

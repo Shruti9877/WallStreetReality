@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Contact Us - Real Estate</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f7f7f7;
+    }
+
+    /* Navbar Styles */
+    .navbar {
+      background-color: #ffffff;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 15px 40px;
+      color: #000000;
+    }
+
+    .navbar .logo {
+      font-size: 22px;
+      font-weight: bold;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .navbar ul {
+      list-style: none;
+      display: flex;
+      gap: 25px;
+      margin: 0;
+      padding: 0;
+    }
+
+    .navbar ul li a {
+      color: #000000;
+      text-decoration: none;
+      font-size: 16px;
+      transition: color 0.3s ease;
+    }
+
+    .navbar ul li a:hover {
+      color: #d53e3e;
+    }
+
+    /* Contact Page Layout */
+    .contact-container {
+      max-width: 1200px;
+      margin: auto;
+      padding: 40px 20px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 40px;
+    }
+
+    .contact-info, .contact-form {
+      flex: 1;
+      min-width: 300px;
+    }
+
+    h2 {
+      margin-bottom: 20px;
+      color: #333;
+    }
+
+    .info-item {
+      margin-bottom: 15px;
+      font-size: 16px;
+    }
+
+    .info-item i {
+      margin-right: 10px;
+      color: #0066cc;
+    }
+
+    form {
+      background: #fff;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+
+    input, textarea {
+      width: 100%;
+      padding: 12px;
+      margin-bottom: 15px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      font-size: 15px;
+    }
+
+    button {
+      background-color: #0066cc;
+      color: #fff;
+      border: none;
+      padding: 12px 20px;
+      font-size: 16px;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #004c99;
+    }
+
+    iframe {
+      width: 100%;
+      height: 300px;
+      border: none;
+      margin-top: 30px;
+      border-radius: 10px;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .navbar {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .navbar ul {
+        flex-direction: column;
+        width: 100%;
+        padding-top: 10px;
+      }
+
+      .navbar ul li {
+        padding: 8px 0;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navbar -->
+  <nav class="navbar">
+    <div class="logo">Wall street</div>
+    <ul>
+      <li><a href="home.php">Home</a></li>
+      <li><a href="propertis.html">Properties</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="contact.html">Contact Us</a></li>
+      <li><a href="signup.html">Login</a></li>
+    </ul>
+  </nav>
+
+  <!-- Contact Page Content -->
+  <div class="contact-container">
+    <div class="contact-info">
+      <h2>Contact Information</h2>
+      <div class="info-item"><i class="fas fa-map-marker-alt"></i> 123 Main Street, Mumbai, India</div>
+      <div class="info-item"><i class="fas fa-phone"></i> +91 98765 43210</div>
+      <div class="info-item"><i class="fas fa-envelope"></i> info@realestate.com</div>
+      <div class="info-item"><i class="fas fa-clock"></i> Mon - Sat: 9:00 AM - 6:00 PM</div>
+
+      <iframe 
+        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d241317.1160988886!2d72.74110004774456!3d19.08219783916857!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3be7b63fa075e5a5%3A0xdea3e108ad5fbc4!2sMumbai%2C%20Maharashtra!5e0!3m2!1sen!2sin!4v1612342345567"
+        allowfullscreen=""
+        loading="lazy">
+      </iframe>
+    </div>
+
+    <div class="contact-form">
+      <h2>Send Us a Message</h2>
+      <form action="submit_contact.php" method="POST">
+        <input type="text" name="name" placeholder="Your Full Name" required>
+        <input type="email" name="email" placeholder="Your Email Address" required>
+        <input type="tel" name="phone" placeholder="Your Phone Number">
+        <textarea name="message" rows="6" placeholder="Your Message" required></textarea>
+        <button type="submit">Send Message</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Optional: Font Awesome CDN for icons -->
+  <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+</body>
+</html>

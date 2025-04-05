@@ -12,7 +12,7 @@ try {
 }
 
 // Show only Bunglows properties
-$type = 'Plot';
+$type = 'Bunglows';
 
 $query = "SELECT * FROM properties WHERE type = ?";
 $stmt = $pdo->prepare($query);
@@ -23,7 +23,7 @@ $properties = $stmt->fetchAll();
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Plot Listings</title>
+    <title>Bunglows Listings</title>
     <style>
         * {
             box-sizing: border-box;
@@ -251,7 +251,7 @@ $properties = $stmt->fetchAll();
 </nav>
 
 
-<h2>Plot for Sale</h2>
+<h2>Bunglows for Sale</h2>
 
 <div class="property-list">
     <?php foreach ($properties as $prop): ?>
