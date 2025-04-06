@@ -1,3 +1,11 @@
+<?php
+session_start();
+if (!isset($_SESSION["admin_email"])) {
+header("Location: login.html");
+    echo json_encode(["error" => "User not logged in"]);
+    exit();
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -99,11 +107,10 @@
 <body>
     <div class="sidebar">
         <h2>Admin Panel</h2>
-        <a href="dashboard.html"><i class="fas fa-tachometer-alt"></i> Dashboard</a>
-        <a href="properties.html"><i class="fas fa-building"></i> Manage Properties</a>
-        <a href="users.html"><i class="fas fa-users"></i> Manage Users</a>
-        <a href="analytics.html"><i class="fas fa-chart-line"></i> Analytics</a>
-        <a href="settings.html"><i class="fas fa-cogs"></i> Settings</a>
+        <a href="dashboard.php"><i class="fas fa-tachometer-alt"></i> Dashboard</a>
+        <a href="property.php"><i class="fas fa-building"></i> Manage Properties</a>
+        <a href="users.php"><i class="fas fa-users"></i> Manage Users</a>
+        <a href="analytics.php"><i class="fas fa-chart-line"></i> Analytics</a>
         <a href="logout.html"><i class="fas fa-sign-out-alt"></i> Logout</a>
     </div>
 

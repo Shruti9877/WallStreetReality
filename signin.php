@@ -24,12 +24,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             exit();
         } else {
             $_SESSION['error'] = "Incorrect password!";
-            header("Location: login.php");
+            header("Location: signup.php");
             exit();
         }
     } else {
         $_SESSION['error'] = "Email not found!";
-        header("Location: login.php");
+        header("Location: signup.html");
         exit();
     }
 }

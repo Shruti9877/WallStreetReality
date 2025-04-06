@@ -18,24 +18,24 @@ try {
     die("Database connection failed: " . $e->getMessage());
 }
 
-// Pagination setup
-$limit = 10; // properties per page
-$page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
-if ($page < 1) $page = 1;
-$offset = ($page - 1) * $limit;
+// Pagination settings
+$limit = 10; // Users per page
+$page = isset($_GET['page']) ? (int) $_GET['page'] : 1;
+$start = ($page - 1) * $limit;
 
-// Total rows
-$totalStmt = $pdo->query("SELECT COUNT(*) FROM properties");
-$totalProperties = $totalStmt->fetchColumn();
-$totalPages = ceil($totalProperties / $limit);
+// Get total number of users
+$totalStmt = $pdo->query("SELECT COUNT(*) FROM user");
+$totalUsers = $totalStmt->fetchColumn();
+$totalPages = ceil($totalUsers / $limit);
 
-// Fetch paginated data
-$stmt = $pdo->prepare("SELECT * FROM properties ORDER BY id DESC LIMIT :limit OFFSET :offset");
+// Fetch users for current page
+$stmt = $pdo->prepare("SELECT * FROM user ORDER BY id  LIMIT :start, :limit");
+$stmt->bindValue(':start', $start, PDO::PARAM_INT);
 $stmt->bindValue(':limit', $limit, PDO::PARAM_INT);
-$stmt->bindValue(':offset', $offset, PDO::PARAM_INT);
 $stmt->execute();
-$properties = $stmt->fetchAll(PDO::FETCH_ASSOC);
+$users = $stmt->fetchAll(PDO::FETCH_ASSOC);
 ?>
+
 
 
 <!DOCTYPE html>
@@ -43,7 +43,7 @@ $properties = $stmt->fetchAll(PDO::FETCH_ASSOC);
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Manage Properties - Admin Panel</title>
+    <title>Manage Users - Admin Panel</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         body {
@@ -84,7 +84,7 @@ $properties = $stmt->fetchAll(PDO::FETCH_ASSOC);
             font-size: 24px;
             border-bottom: 2px solid #374151;
         }
-        .properties-container {
+        .users-container {
             margin-top: 20px;
             background: #1E293B;
             padding: 20px;
@@ -145,6 +145,7 @@ $properties = $stmt->fetchAll(PDO::FETCH_ASSOC);
             background: #3B82F6;
             font-weight: bold;
         }
+
     </style>
 </head>
 <body>
@@ -158,33 +159,30 @@ $properties = $stmt->fetchAll(PDO::FETCH_ASSOC);
     </div>
 
     <div class="main-content">
-        <div class="header">Manage Properties</div>
+        <div class="header">Manage Users</div>
 
-        <div class="properties-container">
-            <a href="add_proparty.html" class="add-button"><i class="fas fa-plus"></i> Add New Property</a>
+        <div class="users-container">
             
-            <table>
-            <?php foreach ($properties as $property): ?>
+            <table id="userTable">
                 <tr>
-                    <td><?= htmlspecialchars($property['id']) ?></td>
-                    <td><?= htmlspecialchars($property['title']) ?></td>
-                    <td><?= htmlspecialchars($property['location']) ?></td>
-                    <td><?= htmlspecialchars($property['price']) ?></td>
-                    <td><?= htmlspecialchars($property['status']) ?></td>
-                                
-                    <td class="actions">
-                    <a href="edit_property.php?id=<?= $property['id'] ?>">Edit</a>
-
-                
-
-
-                    </td>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Actions</th>
                 </tr>
-            <?php endforeach; ?>
-
+                <?php foreach ($users as $key => $user): ?>
+                    <tr>
+                        <td><?= htmlspecialchars($user['id']) ?></td>
+                        <td><?= htmlspecialchars($user['name']) ?></td>
+                        <td><?= htmlspecialchars($user['email']) ?></td>
+                        <td class="actions">
+                            <i class="fa-solid fa-eye" style="color: #74C0FC;" onclick="viewUser(this)" data-id="<?= htmlspecialchars($user['id']) ?>"></i>
+                            <a href="javascript:void(0);" onclick="deleteUser(this, <?= $user['id'] ?>)" class="delete"> <i class="fas fa-trash delete"></i></a>
+                        </td>
+                    </tr>
+                <?php endforeach; ?>
             </table>
         </div>
-        <!-- Pagination Links -->
         <div class="pagination">
             <?php if ($page > 1): ?>
                 <a href="?page=<?= $page - 1 ?>">&laquo; Prev</a>
@@ -201,5 +199,38 @@ $properties = $stmt->fetchAll(PDO::FETCH_ASSOC);
             <?php endif; ?>
         </div>
     </div>
+
+    <script>
+        function viewUser(element) {
+            var id = element.getAttribute('data-id');
+           location.href = "view_user.php/?id="+id;
+        }
+
+        function deleteUser(element, id) {
+            if (confirm("Are you sure you want to delete this user?")) {
+                fetch(`delete_user.php?id=${id}`, {
+                    method: 'GET',
+                    headers: {
+                        'X-Requested-With': 'XMLHttpRequest' // Mark as AJAX
+                    }
+                })
+                .then(res => res.text())
+                .then(response => {
+                    if (response.trim() === 'success') {
+                        let row = element.closest("tr");
+                        row.remove();
+                        alert("User deleted successfully.");
+                    } else {
+                        alert("Failed to delete user. Server response: " + response);
+                    }
+                })
+                .catch(error => {
+                    console.error("Error:", error);
+                    alert("Something went wrong.");
+                });
+            }
+        }
+
+    </script>
 </body>
 </html>

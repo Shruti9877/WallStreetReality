@@ -44,7 +44,7 @@ $stmt->execute([$title, $type, $price, $bedrooms, $bathrooms, $area, $descriptio
         $stmt->execute([$title, $type, $price, $bedrooms, $bathrooms, $area, $description, $id]);
     }
 
-    header("Location: dashboard.html?msg=Property+Updated");
+    header("Location: dashboard.php?msg=Property+Updated");
     exit;
 } else {
     echo "Invalid access.";
