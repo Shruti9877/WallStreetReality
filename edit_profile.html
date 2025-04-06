@@ -2,48 +2,196 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Edit Profile</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <style>
-        .edit-profile-form {
-            max-width: 400px;
-            margin: auto;
-            padding: 20px;
-            border: 1px solid #ccc;
-            border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 120vh;
+            background: linear-gradient(135deg, #f8f9fa, #d6e2f0);
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
         }
-        .edit-profile-form input, .edit-profile-form button {
-            width: 100%;
-            margin: 10px 0;
-            padding: 10px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
+
+        .edit-form {
+            background: rgba(255, 255, 255, 0.3);
+            backdrop-filter: blur(10px);
+            padding: 35px;
+            width: 400px;
+            border-radius: 15px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+            text-align: center;
+            transition: all 0.3s ease-in-out;
         }
-        .edit-profile-form button {
-            background-color: #4CAF50;
+
+        .edit-form:hover {
+            transform: scale(1.02);
+        }
+
+        input[type="text"],
+        input[type="email"],
+        input[type="file"] {
+            width: 85%;
+            padding: 12px;
+            margin-top: 15px;
+            border-radius: 12px;
+            border: 1px solid rgba(0, 0, 0, 0.15);
+            font-size: 16px;
+            outline: none;
+            background: rgba(255, 255, 255, 0.5);
+            backdrop-filter: blur(8px);
+            transition: all 0.3s ease-in-out;
+        }
+
+        input:focus {
+            border-color: #007bff;
+            box-shadow: 0 0 12px rgba(0, 123, 255, 0.3);
+        }
+
+        button {
+            width: 90%;
+            background: linear-gradient(135deg, #4a90e2, #0052cc);
             color: white;
+            padding: 14px;
+            margin-top: 20px;
             border: none;
+            border-radius: 12px;
+            font-size: 17px;
+            font-weight: 600;
             cursor: pointer;
+            transition: all 0.3s ease-in-out;
         }
-        .edit-profile-form button:hover {
-            background-color: #45a049;
+
+        button:hover {
+            background: linear-gradient(135deg, #0052cc, #003d80);
+            transform: scale(1.05);
+        }
+
+        .success, .error {
+            font-weight: bold;
+            margin-top: 10px;
+            display: none;
+        }
+
+        .success {
+            color: #1abc9c;
+        }
+
+        .error {
+            color: #e74c3c;
+        }
+
+        img.avatar-preview {
+            margin-top: 15px;
+            width: 100px;
+            height: 100px;
+            object-fit: cover;
+            border-radius: 50%;
+            border: 2px solid #aaa;
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        label {
+            display: block;
+            margin-top: 15px;
+            font-weight: bold;
         }
     </style>
 </head>
 <body>
-    <h1 align="center">Wall Street Reality</h1>
-    <div class="edit-profile-form">
-        <form action="p]" method="POST">
-            <h2>Edit Profile</h2>
-            <input type="text" id="name" name="name" placeholder="Enter your name" value="<?php echo htmlspecialchars($name); ?>" required>
-            <input type="text"id="bio" name="bio" placeholder="Enter your bio" value="<?php echo htmlspecialchars($bio); ?>" required>
-            <input type="text" id="avatar" name="avatar" placeholder="Enter avatar image URL" value="<?php echo htmlspecialchars($avatar); ?>" required>
-            <button type="submit">Save Changes</button>
-        </form>
-    </div>
+
+<div class="edit-form">
+    <h2>Edit Profile</h2>
+
+    <p class="success" id="success-message"></p>
+    <p class="error" id="error-message"></p>
+
+    <form id="edit-profile-form" enctype="multipart/form-data">
+        <label for="avatar">Profile Image:</label>
+        <input type="file" name="avatar" id="avatar" accept="image/*" onchange="previewImage(event)">
+        <img src="uploads/" id="avatar-preview" class="avatar-preview" alt="Avatar Preview">
+
+        <label for="name">Name:</label>
+        <input type="text" name="name" id="name" required>
+
+        <label for="email">Email (cannot be changed):</label>
+        <input type="email" id="email" disabled>
+
+        <label for="phone">Phone:</label>
+        <input type="text" name="phone" id="phone" required>
+
+        <label for="address">Address:</label>
+        <input type="text" name="address" id="address" required>
+
+        <button type="submit">Save Changes</button>
+    </form>
+</div>
+
+<script>
+    // Load current profile
+    fetch('profile.php')
+        .then(response => response.json())
+        .then(data => {
+            if (!data.error) {
+                document.getElementById('name').value = data.name;
+                document.getElementById('email').value = data.email;
+                document.getElementById('phone').value = data.phone;
+                document.getElementById('address').value = data.address;
+
+                if (data.avatar) {
+                    document.getElementById('avatar-preview').src = data.avatar;
+                }
+            } else {
+                document.getElementById("error-message").innerText = data.message;
+                document.getElementById("error-message").style.display = "block";
+            }
+        })
+       
+
+    // Preview selected image
+    function previewImage(event) {
+        const output = document.getElementById('avatar-preview');
+        output.src = URL.createObjectURL(event.target.files[0]);
+    }
+
+    // Submit form and update profile
+    document.getElementById('edit-profile-form').addEventListener('submit', function (e) {
+        e.preventDefault();
+
+        const name = document.getElementById('name').value.trim();
+        const phone = document.getElementById('phone').value.trim();
+        const address = document.getElementById('address').value.trim();
+
+        if (!name || !phone || !address) {
+            document.getElementById("error-message").innerText = "All fields are required.";
+            document.getElementById("error-message").style.display = "block";
+            return;
+        }
+
+        const formData = new FormData(this);
+
+        fetch('edit_profile.php', {
+            method: 'POST',
+            body: formData
+        })
+        .then(res => res.json())
+        .then(data => {
+            if (data.success) {
+              // Redirect to profile page
+            
+            } else {
+                document.getElementById("error-message").innerText = data.message || "Update failed.";
+                document.getElementById("error-message").style.display = "block";
+                window.location.href = 'profile.html';
+            }
+        })
+        
+    });
+</script>
+
 </body>
 </html>
-<script>
-
-</script>

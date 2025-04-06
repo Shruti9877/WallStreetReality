@@ -45,6 +45,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if ($stmt->execute()) {
         session_start();
         $_SESSION["email"] = $email;
+        $_SESSION['user_id'] = $conn->insert_id;
         header("Location: home.php");
         exit();
     } else {
@@ -54,4 +55,5 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $stmt->close();
 }
 $conn->close();
+
 ?>

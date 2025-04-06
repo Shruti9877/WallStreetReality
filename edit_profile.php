@@ -4,7 +4,7 @@ include 'db_connection.php'; // Include database connection
 
 // Check if user is logged in
 if (!isset($_SESSION['user_id'])) {
-    header("Location: signup.php");
+    header("Location: signup.html");
     exit();
 }
 
@@ -50,11 +50,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             
             if ($update_stmt->execute()) {
                 $_SESSION['success_message'] = "Profile updated successfully!";
-                header("Location: profile.html");
+                header("Location: profile.php?updated=" . time()); // Force refresh
                 exit();
             } else {
                 $error_message = "Error updating profile. Please try again.";
             }
+            
         }
     }
 }
@@ -67,85 +68,46 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Edit Profile</title>
     <style>
-       /* General Styles */
-body {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    background: linear-gradient(135deg, #f8f9fa, #d6e2f0);
-    font-family: 'Poppins', sans-serif;
-    margin: 0;
-}
-
-/* Edit Form */
-.edit-form {
-    background: rgba(255, 255, 255, 0.3);
-    backdrop-filter: blur(10px);
-    padding: 35px;
-    width: 400px;
-    border-radius: 15px;
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
-    text-align: center;
-    transition: all 0.3s ease-in-out;
-}
-
-.edit-form:hover {
-    transform: scale(1.02);
-}
-
-/* Input Fields */
-input {
-    width: 85%;
-    padding: 12px;
-    margin-top: 15px;
-    border-radius: 12px;
-    border: 1px solid rgba(0, 0, 0, 0.15);
-    font-size: 16px;
-    outline: none;
-    background: rgba(255, 255, 255, 0.5);
-    backdrop-filter: blur(8px);
-    transition: all 0.3s ease-in-out;
-}
-
-input:focus {
-    border-color: #007bff;
-    box-shadow: 0 0 12px rgba(0, 123, 255, 0.3);
-}
-
-/* Button */
-button {
-    width: 90%;
-    background: linear-gradient(135deg, #4a90e2, #0052cc);
-    color: white;
-    padding: 14px;
-    margin-top: 20px;
-    border: none;
-    border-radius: 12px;
-    font-size: 17px;
-    font-weight: 600;
-    cursor: pointer;
-    transition: all 0.3s ease-in-out;
-}
-
-button:hover {
-    background: linear-gradient(135deg, #0052cc, #003d80);
-    transform: scale(1.05);
-}
-
-/* Success & Error Messages */
-.success {
-    color: #1abc9c;
-    font-weight: bold;
-    margin-top: 10px;
-}
-
-.error {
-    color: #e74c3c;
-    font-weight: bold;
-    margin-top: 10px;
-}
-
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background: linear-gradient(to right, #f7f6f6, #f2d7d5);
+            font-family: Arial, sans-serif;
+            margin: 0;
+        }
+        .edit-form {
+            background: #ffffff;
+            padding: 25px;
+            width: 400px;
+            border-radius: 12px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+            text-align: center;
+        }
+        input, button {
+            width: 90%;
+            padding: 10px;
+            margin-top: 10px;
+            border-radius: 8px;
+            border: 1px solid #ccc;
+            font-size: 16px;
+        }
+        button {
+            background: #00094d;
+            color: white;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        button:hover {
+            background: #333399;
+        }
+        .success {
+            color: green;
+        }
+        .error {
+            color: red;
+        }
     </style>
 </head>
 <body>
@@ -162,7 +124,7 @@ button:hover {
         <form action="" method="POST" enctype="multipart/form-data">
             <label>Profile Image:</label><br>
             <input type="file" name="avatar"><br>
-            <img src="<?php echo $user['avatar'] ? $user['avatar'] : 'uploads/bg5.jpg'; ?>" width="100" height="100" style="border-radius:50%;"><br>
+            <img src="<?php echo $user['avatar'] ? $user['avatar'] : 'uploads/'; ?>" width="100" height="100" style="border-radius:50%;"><br>
 
             <label>Name:</label><br>
             <input type="text" name="name" value="<?php echo htmlspecialchars($user['name'] ?? ''); ?>" required><br>
@@ -177,7 +139,7 @@ button:hover {
             <input type="text" name="address" value="<?php echo htmlspecialchars($user['address'] ?? ''); ?>" required><br>
             
             <button type="submit">Save Changes</button>
-
+            
         </form>
     </div>
 

@@ -305,7 +305,7 @@ $properties = $stmt->fetchAll();
                        <strong>Status:</strong> <?= htmlspecialchars($prop['status']) ?></p>
                 </div>
                 <div class="btn-group">
-                    <button class="buy-btn" onclick="window.open('inquiry.php')">Inquiry</button>
+                <button class="buy-btn" onclick="window.open('inquiry.php?id=<?= $prop['id']; ?>')">Inquiry</button>
                     <button class="map-btn" onclick="window.open('https://www.google.com/maps/search/<?= urlencode($prop['location']) ?>', '_blank')">View on Map</button>
                     <button class="wishlist-btn" onclick='addToWishlist(<?= json_encode($prop, JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT) ?>)'>Wishlist</button>
                 </div>

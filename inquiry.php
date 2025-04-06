@@ -84,34 +84,34 @@
 
       <label for="property_id">Select Property</label>
       <select id="property_id" name="property_id" required>
-        <option value="">-- Choose a Property --</option>
-        <?php
-// Database connection (replace with your actual DB credentials)
-          $dsn = 'mysql:host=localhost;dbname=real_estate;charset=utf8mb4';
-          $username = 'root';
-          $password = '';
+    <?php
+    $id = $_GET['id'] ?? null;
 
-          try {
-              $pdo = new PDO($dsn, $username, $password);
-              $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    $dsn = 'mysql:host=localhost;dbname=real_estate;charset=utf8mb4';
+    $username = 'root';
+    $password = '';
 
-              // Fetch id, title, and address from properties
-              $stmt = $pdo->query("SELECT id, title, location FROM properties ORDER BY title ASC");
+    try {
+        $pdo = new PDO($dsn, $username, $password);
+        $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-              while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
-                  $id = htmlspecialchars($row['id']);
-                  $title = htmlspecialchars($row['title']);
-                  $address = htmlspecialchars($row['location']);
+        if ($id) {
+            $stmt = $pdo->prepare("SELECT id, title, location FROM properties WHERE id = :id ORDER BY title ASC");
+            $stmt->execute(['id' => $id]);
+        } else {
+            $stmt = $pdo->query("SELECT id, title, location FROM properties ORDER BY title ASC");
+        }
 
-                  echo "<option value=\"$id\">$title - $address</option>";
-              }
-          } catch (PDOException $e) {
-              echo '<option disabled>Error fetching properties</option>';
-          }
-          ?>
+        while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+            $selected = ($row['id'] == $id) ? 'selected' : '';
+            echo "<option value=\"{$row['id']}\" $selected>{$row['title']} - {$row['location']}</option>";
+        }
+    } catch (PDOException $e) {
+        echo '<option disabled>Error fetching properties</option>';
+    }
+    ?>
+</select>
 
-        ?>
-      </select>
 
       <label for="message">Your Message</label>
       <textarea id="message" name="message" rows="6" placeholder="I would like to know more about this property..." required></textarea>

@@ -167,6 +167,7 @@ try {
       <option value="Apartment" <?php if ($property['type'] == 'Apartment') echo 'selected'; ?>>Apartment</option>
       <option value="Villa" <?php if ($property['type'] == 'Villa') echo 'selected'; ?>>Villa</option>
       <option value="Plot" <?php if ($property['type'] == 'Plot') echo 'selected'; ?>>Plot</option>
+      <option value="mansion" <?php if ($property['type'] == 'mansion') echo 'selected'; ?>>mansion</option>
     </select>
 
     <label>Price:</label>
