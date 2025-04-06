@@ -76,5 +76,5 @@ $stmt->execute([
     ':images' => $images_string
 ]);
 
-echo "<script>alert('Property added successfully!'); window.location.href='add_form.html';</script>";
+echo "<script>alert('Property added successfully!'); window.location.href='property.php';</script>";
 ?>

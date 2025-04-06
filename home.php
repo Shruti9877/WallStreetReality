@@ -1697,7 +1697,7 @@ text-align: center;
         <ul class="header-top-list">
 
           <li>
-            <a href="devpatel472005@gmail.com" class="header-top-link">
+            <a href="wallstreet@gmail.com" class="header-top-link">
               <ion-icon name="mail-outline"></ion-icon>
 
               <span>devpatel472005@gmail.com</span>
@@ -1926,7 +1926,7 @@ text-align: center;
               llamco laboris. Lorem ipsum dolor sit amet"
             </p>
 
-            <a href="#service" class="btn">Our Services</a>
+            <a href="propertis.html" class="btn">Our Services</a>
 
           </div>
 
@@ -1958,7 +1958,7 @@ text-align: center;
                 </div>
 
                 <h3 class="h3 card-title">
-                  <a href="#">Buy a home</a>
+                  <a href="propertis.html">Buy a home</a>
                 </h3>
 
                 <p class="card-text">
@@ -1966,7 +1966,7 @@ text-align: center;
                   to call home.
                 </p>
 
-                <a href="#" class="card-link">
+                <a href="propertis.html" class="card-link">
                   <span>Find A Home</span>
 
                   <ion-icon name="arrow-forward-outline"></ion-icon>
@@ -1983,7 +1983,7 @@ text-align: center;
                 </div>
 
                 <h3 class="h3 card-title">
-                  <a href="#">Rent a home</a>
+                  <a href="propertis.html">Rent a home</a>
                 </h3>
 
                 <p class="card-text">
@@ -2052,7 +2052,7 @@ text-align: center;
 
                 <figure class="card-banner">
 
-                  <a href="#">
+                  <a href="propertis.html">
                     <img src="photos/mansion1.jpg" alt="New Apartment Nice View" class="w-100">
                     <img src="photos/mansion1hall.jpg" alt="New Apartment Nice View" class="w-100">
                   </a>
@@ -2090,7 +2090,7 @@ text-align: center;
                   </div>
 
                   <h3 class="h3 card-title">
-                    <a href="#">New Apartment Nice View</a>
+                    <a href="">New Apartment Nice View</a>
                   </h3>
 
                   <p class="card-text">
@@ -2968,7 +2968,7 @@ text-align: center;
             </li>
 
             <li>
-              <a href="#" class="footer-link">About</a>
+              <a href="aboutus.html" class="footer-link">About</a>
             </li>
 
             <li>
@@ -2999,9 +2999,7 @@ text-align: center;
               <p class="footer-list-title">Services</p>
             </li>
 
-            <li>
-              <a href="#" class="footer-link">Order tracking</a>
-            </li>
+          
 
             <li>
               <a href="#" class="footer-link">Wish List</a>
@@ -3032,27 +3030,22 @@ text-align: center;
             </li>
 
             <li>
-              <a href="#" class="footer-link">Login</a>
+              <a href="signup.php" class="footer-link">Login</a>
             </li>
 
             <li>
-              <a href="#" class="footer-link">My account</a>
+              <a href="profile.html" class="footer-link">My account</a>
             </li>
 
             <li>
-              <a href="#" class="footer-link">Wish List</a>
+              <a href="wishlist.html" class="footer-link">Wish List</a>
             </li>
 
-            <li>
-              <a href="#" class="footer-link">Order tracking</a>
-            </li>
+            
 
+           
             <li>
-              <a href="#" class="footer-link">FAQ</a>
-            </li>
-
-            <li>
-              <a href="#" class="footer-link">Contact us</a>
+              <a href="contact.html" class="footer-link">Contact us</a>
             </li>
 
           </ul>
@@ -3066,7 +3059,7 @@ text-align: center;
       <div class="container">
 
         <p class="copyright">
-          &copy; 2022 <a href="#">codewithsadee</a>. All Rights Reserved
+          &copy; 2025 </a>. All Rights Reserved
         </p>
 
       </div>
