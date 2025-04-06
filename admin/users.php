@@ -155,7 +155,7 @@ $users = $stmt->fetchAll(PDO::FETCH_ASSOC);
         <a href="property.php"><i class="fas fa-building"></i> Manage Properties</a>
         <a href="users.php"><i class="fas fa-users"></i> Manage Users</a>
         <a href="analytics.php"><i class="fas fa-chart-line"></i> Analytics</a>
-        <a href="logout.html"><i class="fas fa-sign-out-alt"></i> Logout</a>
+        <a href="logout.php"><i class="fas fa-sign-out-alt"></i> Logout</a>
     </div>
 
     <div class="main-content">
