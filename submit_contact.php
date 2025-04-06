@@ -31,16 +31,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
             // Email Content
             $mail->isHTML(true);
-            $mail->Subject = "New Contact Form Submission from $name";
+            $mail->Subject = "New Contact Notification on Wall Street Reality";
             $mail->Body    = "
-                <strong>Name:</strong> $name <br>
-                <strong>Email:</strong> $email <br>
-                <strong>Phone:</strong> $phone <br><br>
-                <strong>Message:</strong><br> $message
+            <p>Hello, admin.</p><br>
+            <p>This is to inform you that new user($name) has made an inquiry to contact you for the property details and this is the details below of the user:</p><br>
+            <strong>EMAIL:</strong> $email <br>
+            <strong>CONTACT NO:</strong> $phone <br>
+            <strong>USER MESSAGE:</strong> $message
             ";
 
             $mail->send();
-            echo "<h2>Thank you! Your message has been sent successfully.</h2>";
+            header('Location:contact.html?success=1');
         } catch (Exception $e) {
             echo "<h2>Message could not be sent. Mailer Error: {$mail->ErrorInfo}</h2>";
         }

@@ -11,7 +11,7 @@ try {
     die("Database connection failed: " . $e->getMessage());
 }
 
-// Show only Bunglows properties
+// Show only Villas
 $type = 'Mansion';
 
 $query = "SELECT * FROM properties WHERE type = ?";
@@ -23,63 +23,71 @@ $properties = $stmt->fetchAll();
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Manssion Listings</title>
+    <title>Mansion Listings</title>
     <style>
-        * {
+          * {
             box-sizing: border-box;
         }
 
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color:rgb(240, 240, 240);
+            background-color: rgb(240, 240, 240);
             margin: 0;
             padding: 0;
         }
 
-        /* Navbar */
         .navbar {
-    background-color:rgb(255, 255, 255);
-    padding: 15px 0;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-}
+            background-color: white;
+            padding: 20px 0;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            position: relative;
+            z-index: 1000;
+        }
 
-.nav-container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 20px;
-    text-align: center;
-}
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+        }
 
-.logo {
-    font-size: 24px;
-    font-weight: bold;
-    color: white;
-    margin-bottom: 10px;
-}
+        .logo-container {
+            position: absolute;
+            left: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+        }
 
-.nav-links {
-    list-style: none;
-    display: flex;
-    justify-content: center; /* Center links */
-    gap: 30px;
-    padding: 0;
-    margin: 0;
-}
+        .logo-container a {
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 18px;
+            color: #2c3e50;
+        }
 
-.nav-links li a {
-  text-decoration: none;
-    color:rgb(8, 0, 0);
-    font-weight: 500;
-    font-size: 16px;
-    transition: color 0.2s ease;
-}
+        .nav-links {
+            list-style: none;
+            display: flex;
+            justify-content: center;
+            padding: 0;
+            margin: 0;
+            gap: 30px;
+        }
 
-.nav-links li a:hover {
-    color:rgb(215, 73, 73);
-}
+        .nav-links li a {
+            text-decoration: none;
+            color: rgb(8, 0, 0);
+            font-weight: 500;
+            font-size: 16px;
+            transition: color 0.2s ease;
+        }
 
-
-        
+        .nav-links li a:hover {
+            color: rgb(215, 73, 73);
+        }
 
         h2 {
             text-align: center;
@@ -196,6 +204,15 @@ $properties = $stmt->fetchAll();
             background-color: #216a94;
         }
 
+        .wishlist-btn {
+            background-color: #e67e22;
+            color: white;
+        }
+
+        .wishlist-btn:hover {
+            background-color: #cf6a17;
+        }
+
         @media screen and (max-width: 1200px) {
             .property-list {
                 grid-template-columns: repeat(3, 1fr);
@@ -228,30 +245,39 @@ $properties = $stmt->fetchAll();
             .btn-group button {
                 font-size: 13px;
             }
+
+            .nav-container {
+                flex-direction: column;
+            }
+
+            .logo-container {
+                position: static;
+                transform: none;
+                margin-bottom: 10px;
+            }
         }
     </style>
 </head>
 <body>
 
 <!-- NAVBAR -->
-<!-- NAVBAR -->
 <nav class="navbar">
-<div class="logo-container">
-                        <a href="#">
-                          <img src="photos/es4.jpg" alt="Logo" class="logo" />
-                        </a>
-                    </div>
-    
+    <div class="nav-container">
+        <div class="logo-container">
+            <a href="#">
+                <img src="photos/es4.jpg" alt="Logo" class="logo" />
+            </a>
+        </div>
         <ul class="nav-links">
             <li><a href="home.php">Home</a></li>
             <li><a href="propertis.html">Property</a></li>
             <li><a href="profile.html">Profile</a></li>
+            <li><a href="wishlist.html">Wishlist</a></li>
         </ul>
     </div>
 </nav>
 
-
-<h2>Manssion for Sale</h2>
+<h2>Manssion  for Sale</h2>
 
 <div class="property-list">
     <?php foreach ($properties as $prop): ?>
@@ -268,20 +294,45 @@ $properties = $stmt->fetchAll();
                 ?>
             </div>
             <div class="property-content">
-                <h3><?= $prop['title'] ?> (<?= $prop['type'] ?>)</h3>
+                <h3><?= htmlspecialchars($prop['title']) ?> (<?= htmlspecialchars($prop['type']) ?>)</h3>
                 <div class="property-details">
-                    <p><strong>Location:</strong> <?= $prop['location'] ?> | <strong>Price:</strong> <?= $prop['price'] ?></p>
-                    <p><strong>Bedrooms:</strong> <?= $prop['bedrooms'] ?> | <strong>Bathrooms:</strong> <?= $prop['bathrooms'] ?> | <strong>Area:</strong> <?= $prop['area'] ?> sqft</p>
-                    <p><strong>Agent:</strong> <?= $prop['agent_name'] ?> | <strong>Status:</strong> <?= $prop['status'] ?></p>
+                    <p><strong>Location:</strong> <?= htmlspecialchars($prop['location']) ?> |
+                       <strong>Price:</strong> <?= htmlspecialchars($prop['price']) ?></p>
+                    <p><strong>Bedrooms:</strong> <?= $prop['bedrooms'] ?> |
+                       <strong>Bathrooms:</strong> <?= $prop['bathrooms'] ?> |
+                       <strong>Area:</strong> <?= $prop['area'] ?> sqft</p>
+                    <p><strong>Agent:</strong> <?= htmlspecialchars($prop['agent_name']) ?> |
+                       <strong>Status:</strong> <?= htmlspecialchars($prop['status']) ?></p>
                 </div>
                 <div class="btn-group">
-                    <button class="buy-btn">Buy</button>
+                    <button class="buy-btn" onclick="window.open('inquiry.php')">Inquiry</button>
                     <button class="map-btn" onclick="window.open('https://www.google.com/maps/search/<?= urlencode($prop['location']) ?>', '_blank')">View on Map</button>
+                    <button class="wishlist-btn" onclick='addToWishlist(<?= json_encode($prop, JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT) ?>)'>Wishlist</button>
                 </div>
             </div>
         </div>
     <?php endforeach; ?>
 </div>
+
+<!-- Wishlist Logic -->
+<script>
+  function addToWishlist(property) {
+    let wishlist = JSON.parse(localStorage.getItem('wishlist')) || [];
+
+    const exists = wishlist.some(item => item.name === property.title);
+    if (!exists) {
+      wishlist.push({
+        name: property.title,
+        price: property.price,
+        image: 'admin/' + (property.images.split(',')[0] || '').trim()
+      });
+      localStorage.setItem('wishlist', JSON.stringify(wishlist));
+      alert("Added to wishlist!");
+    } else {
+      alert("Already in wishlist!");
+    }
+  }
+</script>
 
 </body>
 </html>

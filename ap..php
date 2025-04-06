@@ -12,7 +12,7 @@ try {
 }
 
 // Show only Villas
-$type = 'Villa';
+$type = 'Apartment';
 
 $query = "SELECT * FROM properties WHERE type = ?";
 $stmt = $pdo->prepare($query);

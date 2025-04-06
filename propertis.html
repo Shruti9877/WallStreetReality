@@ -1,109 +1,209 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Your Real Estate Site</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #f7f7f7;
-        }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Your Real Estate Site</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f7f7f7;
+    }
 
-        #properties {
-            padding: 20px;
-            background-color: #fff;
-        }
+    /* Navbar styles */
+    nav {
+      background-color: #ffffff;
+      padding: 10px 20px;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+    }
 
-        h2 {
-            text-align: center;
-            color: #333;
-        }
+    .logo img {
+      height: 50px;
+    }
 
-        .properties-list {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: space-around;
-        }
+    .nav-left {
+      display: flex;
+      align-items: center;
+    }
 
-        .property-item {
-            background-color: #fff;
-            border: 1px solid #ddd;
-            margin: 15px;
-            padding: 15px;
-            width: 300px;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-            transition: transform 0.2s;
-            text-decoration: none; /* Ensure text decoration is removed for the link */
-            color: inherit; /* Inherit color for text from the parent */
-        }
+    .menu-toggle {
+      display: none;
+      font-size: 24px;
+      cursor: pointer;
+      margin-left: auto;
+    }
 
-        .property-item img {
-            width: 100%;
-            height: auto;
-            display: block;
-            margin-bottom: 10px;
-        }
+    #nav-menu {
+      list-style: none;
+      display: flex;
+      gap: 30px;
+      justify-content: center;
+      flex: 1;
+      margin: 0;
+      padding: 0;
+    }
 
-        .property-item h3 {
-            font-size: 1.2em;
-            color: #333;
-        }
+    #nav-menu li a {
+      text-decoration: none;
+      font-weight: 500;
+      font-size: 18px;
+      color: #000;
+    }
 
-        .property-item p {
-            color: #777;
-        }
+    #nav-menu li a:hover {
+      color: rgb(215, 73, 73);
+    }
 
-        .property-item:hover {
-            transform: scale(1.05);
-        }
+    @media (max-width: 768px) {
+      nav {
+        flex-direction: column;
+        align-items: flex-start;
+      }
 
-        .property-item:hover img {
-            opacity: 0.8; /* Optional: slightly dim the image on hover */
-        }
-    </style>
+      .menu-toggle {
+        display: block;
+        color: #000;
+        align-self: flex-end;
+      }
+
+      #nav-menu {
+        flex-direction: column;
+        background-color: #eee;
+        width: 100%;
+        display: none;
+        margin-top: 10px;
+        padding: 10px 0;
+        align-items: center;
+      }
+
+      #nav-menu.show {
+        display: flex;
+      }
+    }
+
+    /* Property styles */
+    #properties {
+      padding: 20px;
+      background-color: #fff;
+    }
+
+    h2 {
+      text-align: center;
+      color: #333;
+    }
+
+    .properties-list {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .property-item {
+      background-color: #fff;
+      border: 1px solid #ddd;
+      margin: 15px;
+      padding: 15px;
+      width: 300px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+      transition: transform 0.2s;
+      text-decoration: none;
+      color: inherit;
+    }
+
+    .property-item img {
+      width: 100%;
+      height: auto;
+      display: block;
+      margin-bottom: 10px;
+    }
+
+    .property-item h3 {
+      font-size: 1.2em;
+      color: #333;
+    }
+
+    .property-item p {
+      color: #777;
+    }
+
+    .property-item:hover {
+      transform: scale(1.05);
+    }
+
+    .property-item:hover img {
+      opacity: 0.8;
+    }
+  </style>
 </head>
 <body>
 
-    <!-- Properties Section -->
-    <section id="properties">
-        <h2>Available Properties</h2>
-        <div class="properties-list">
-            <!-- Property Item -->
-            <a href="view_proparty.php" class="property-item">
-                <img src="villa.jpg" alt="Luxury Villa">
-                <h3>Luxury Villa</h3>
-                <p>Email: admin@123gmail.com</p>
-                <p>Agent num: 1234567891</p>
-            </a>
-            <a href="manssion.php" class="property-item">
-                <img src="home2.jpg" alt="Mansion">
-                <h3>Mansion</h3>
-                <p>Email: admin@123gmail.com</p>
-                <p>Agent num: 1234567891</p>
-            </a>
-            <a href="plot.php" class="property-item">
-                <img src="plot.jpg" alt="Sites">
-                <h3>Sites</h3>
-                <p>Email: admin@123gmail.com</p>
-                <p>Agent num: 1234567891</p>
-            </a>
-            <a href="bunglo.php" class="property-item">
-                <img src="home.jpg.png" alt="Bunglows">
-                <h3>Bunglows</h3>
-                <p>Email: admin@123gmail.com</p>
-                <p>Agent num: 1234567891</p>
-            </a>
-            <a href="ap.html" class="property-item">
-                <img src="flat.jpg" alt="Modern Apartment">
-                <h3>Modern Apartment</h3>
-                <p>Email: admin@123gmail.com</p>
-                <p>Agent num: 1234567891</p>
-            </a>
-            <!-- Additional properties can be added here -->
-        </div>
-    </section>
+  <!-- Navigation Bar -->
+  <nav>
+    <div class="nav-left">
+      <a href="#" class="logo">
+        <img src="photos/es4.jpg" alt="Logo" />
+      </a>
+    </div>
+    <div class="menu-toggle" onclick="toggleMenu()">☰</div>
+    <ul id="nav-menu">
+      <li><a href="home.php">Home</a></li>
+     
+      <li><a href="aboutus.html">About</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+  </nav>
+
+  <!-- Properties Section -->
+  <section id="properties">
+    <h2>Available Properties</h2>
+    <div class="properties-list">
+      <a href="view_proparty.php" class="property-item">
+        <img src="villa.jpg" alt="Luxury Villa">
+        <h3>Luxury Villa</h3>
+        <p>Email: admin@123gmail.com</p>
+        <p>Agent num: 1234567891</p>
+      </a>
+      <a href="manssion.php" class="property-item">
+        <img src="home2.jpg" alt="Mansion">
+        <h3>Mansion</h3>
+        <p>Email: admin@123gmail.com</p>
+        <p>Agent num: 1234567891</p>
+      </a>
+      <a href="plot.php" class="property-item">
+        <img src="plot.jpg" alt="Sites">
+        <h3>Sites</h3>
+        <p>Email: admin@123gmail.com</p>
+        <p>Agent num: 1234567891</p>
+      </a>
+      <a href="bunglo.php" class="property-item">
+        <img src="home.jpg.png" alt="Bunglows">
+        <h3>Bunglows</h3>
+        <p>Email: admin@123gmail.com</p>
+        <p>Agent num: 1234567891</p>
+      </a>
+      <a href="ap..php" class="property-item">
+        <img src="flat.jpg" alt="Modern Apartment">
+        <h3>Modern Apartment</h3>
+        <p>Email: admin@123gmail.com</p>
+        <p>Agent num: 1234567891</p>
+      </a>
+    </div>
+  </section>
+
+  <script>
+    function toggleMenu() {
+      const menu = document.getElementById('nav-menu');
+      menu.classList.toggle('show');
+    }
+  </script>
+
 </body>
 </html>
