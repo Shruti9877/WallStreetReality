@@ -187,7 +187,7 @@ try {
 
     <label>Current Image:</label>
     <?php if (!empty($property['image'])): ?>
-      <img src="admin/uploads/<?php echo htmlspecialchars($property['image']); ?>" alt="Property Image">
+      <img src="uploads/<?php echo htmlspecialchars($property['image']); ?>" alt="Property Image">
     <?php else: ?>
       <p>No image uploaded.</p>
     <?php endif; ?>
